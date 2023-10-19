@@ -34,6 +34,13 @@
 
 body {
   margin: 0;
+  padding: 0 50px;
+}
+
+@media (max-width: 600px) {
+    body {
+      padding: 0;
+    }
 }
 
 /**
