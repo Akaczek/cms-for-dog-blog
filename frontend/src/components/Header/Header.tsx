@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from 'react';
 import {
   HeaderWrapper,
   NavItem,
@@ -8,11 +8,11 @@ import {
   BurgerMenu,
   BurgerMenuItems,
   BurgerMenuItem,
-} from "./Header.styles";
-import logo from '../assets/logo.png';
-import burgerMenu from '../assets/icons/burgerMenu.svg'
+} from './Header.styles';
+import burgerMenu from '../../assets/icons/burgerMenu.svg';
+import logo from '../../assets/logo.png';
 
-const mockNav = ["Home", "Catalogue", "About"];
+const mockNav = ['Home', 'Catalogue', 'About'];
 
 const Header: FC = () => {
   const [isMenuExpanded, setIsMenuExpanded] = useState(false);
@@ -21,7 +21,7 @@ const Header: FC = () => {
     <HeaderWrapper>
       <BurgerMenu
         src={burgerMenu}
-        alt={"logo"}
+        alt={'logo'}
         onClick={() => {
           setIsMenuExpanded(() => !isMenuExpanded);
         }}
@@ -36,7 +36,7 @@ const Header: FC = () => {
         </BurgerMenuItems>
       )}
 
-      <HeaderLogo src={logo} alt={"logo"} />
+      <HeaderLogo src={logo} alt={'logo'} />
       <NavItemsWrapper>
         {mockNav.map((item, index) => (
           <>

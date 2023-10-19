@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { device } from '../assets/theme/mediaQueries';
+import { device } from '../../assets/theme';
 
 export const HeaderWrapper = styled.nav`
   display: flex;
@@ -11,7 +11,7 @@ export const HeaderWrapper = styled.nav`
   @media ${device.md} {
     padding: 10px 0;
     height: 80px;
-    box-shadow: 0px 3px 15px 1px ${props => props.theme.colors.lightGrey};
+    box-shadow: 0px 3px 15px 1px ${(props) => props.theme.colors.lightGrey};
   }
 `;
 
@@ -33,7 +33,7 @@ export const NavItem = styled.a`
   font-weight: 600;
 
   &:hover {
-    color: ${props => props.theme.colors.lightBrown};
+    color: ${(props) => props.theme.colors.lightBrown};
   }
 `;
 
@@ -41,7 +41,7 @@ export const NavSeparator = styled.div`
   height: 100%;
   width: 3px;
   transform: rotate(20deg);
-  background-color: ${props => props.theme.colors.lightGrey};
+  background-color: ${(props) => props.theme.colors.lightGrey};
 `;
 
 export const HeaderLogo = styled.img`
@@ -62,7 +62,7 @@ export const BurgerMenu = styled.img`
   cursor: pointer;
 
   &:hover {
-    background-color: ${props => props.theme.colors.lightGrey};
+    background-color: ${(props) => props.theme.colors.lightGrey};
   }
 
   @media ${device.md} {
@@ -71,24 +71,27 @@ export const BurgerMenu = styled.img`
 `;
 
 export const BurgerMenuItems = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  top: 80px;
+  display: none;
 
-  height: calc(100vh - 80px);
-  width: 100%;
-`
+  @media ${device.md} {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    height: calc(100vh - 80px);
+    width: 100%;
+  }
+`;
 
 export const BurgerMenuItem = styled.a`
-  text-decoration: none;  
+  text-decoration: none;
   padding: 10px 0 10px 20px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  border-bottom: 2px solid ${props => props.theme.colors.lightBrown};
+  border-bottom: 2px solid ${(props) => props.theme.colors.lightBrown};
 
   &:hover {
-    background-color: ${props => props.theme.colors.lightGrey};
+    background-color: ${(props) => props.theme.colors.lightGrey};
   }
-`
+`;
