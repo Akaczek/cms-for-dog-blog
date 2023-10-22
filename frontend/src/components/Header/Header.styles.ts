@@ -80,6 +80,8 @@ export const BurgerMenuItems = styled.div`
     top: 80px;
     height: calc(100vh - 80px);
     width: 100%;
+    z-index: 1;
+    background-color: ${(props) => props.theme.colors.white};
   }
 `;
 
