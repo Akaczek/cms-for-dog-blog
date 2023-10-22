@@ -10,6 +10,11 @@
   -webkit-text-size-adjust: 100%;
 }
 
+#root {
+  position: relative;
+  min-height: 100vh;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -37,7 +42,7 @@ body {
   padding: 0 50px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     body {
       padding: 0;
     }
