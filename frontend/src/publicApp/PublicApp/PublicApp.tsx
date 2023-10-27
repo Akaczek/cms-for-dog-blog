@@ -1,13 +1,15 @@
 import { FC } from 'react';
 
-import { Header, Footer } from '../../components';
+import { Header, Footer, HeroBanner } from '../../components';
 import { ContentWrapper } from './PublicApp.styles';
 
 const PublicApp: FC = () => {
   return (
     <>
       <Header />
-      <ContentWrapper></ContentWrapper>
+      <ContentWrapper>
+        <HeroBanner />
+      </ContentWrapper>
       <Footer />
     </>
   );
