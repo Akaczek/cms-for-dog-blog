@@ -1,17 +1,19 @@
 import { ThemeProvider } from 'styled-components';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Header, Footer } from './components';
+import AdminPanel from './adminPanel/AdminPanel';
+import PublicApp from './publicApp/PublicApp';
 import { theme } from './assets/theme';
-import { ContentWrapper } from './App.styles';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
-      <ContentWrapper>
-
-      </ContentWrapper>
-      <Footer />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<PublicApp />} />
+          <Route path='/admin' element={<AdminPanel />} />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

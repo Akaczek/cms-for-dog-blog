@@ -29,9 +29,7 @@ const Header: FC = () => {
       {isMenuExpanded && (
         <BurgerMenuItems>
           {mockNav.map((item) => (
-            <>
-              <BurgerMenuItem>{item}</BurgerMenuItem>
-            </>
+            <BurgerMenuItem key={item}>{item}</BurgerMenuItem>
           ))}
         </BurgerMenuItems>
       )}
@@ -40,7 +38,7 @@ const Header: FC = () => {
       <NavItemsWrapper>
         {mockNav.map((item, index) => (
           <>
-            <NavItem>{item}</NavItem>
+            <NavItem key={item}>{item}</NavItem>
             {index !== mockNav.length - 1 && <NavSeparator />}
           </>
         ))}
