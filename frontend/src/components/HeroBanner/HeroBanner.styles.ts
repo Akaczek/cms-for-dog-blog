@@ -3,6 +3,7 @@ import { device } from '../../assets/theme';
 
 export const HeroBannerWrapper = styled.div`
   display: flex;
+  margin-bottom: 30px;
   
   @media ${device.lg} {
     flex-direction: column;
@@ -115,5 +116,5 @@ export const LocationText = styled.div`
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
-  color: ${(props) => props.theme.colors.darkGrey};
+  color: ${(props) => props.theme.colors.grey};
 `;

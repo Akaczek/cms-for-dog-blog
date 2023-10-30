@@ -3,7 +3,8 @@ export const theme = {
     white: '#ffffff',
     lightBrown: '#983a42',
     lightGrey: '#e6e6e6',
-    darkGrey: '#b0b0b0',
+    grey: '#b0b0b0',
+    darkGrey: '#333333',
   },
 };
 
