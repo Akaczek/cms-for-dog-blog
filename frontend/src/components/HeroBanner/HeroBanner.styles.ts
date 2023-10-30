@@ -44,6 +44,7 @@ export const HeroBannerInfoWrapper = styled.div`
 `;
 
 export const HeroBannerTitle = styled.h2`
+  padding-right: 20px;
   position: absolute;
   top: 50%;
   left: 20%;
