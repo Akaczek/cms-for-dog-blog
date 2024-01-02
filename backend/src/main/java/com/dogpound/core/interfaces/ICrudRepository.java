@@ -1,12 +1,13 @@
-package com.dogpound.CrudRepository;
+package com.dogpound.core.interfaces;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @NoRepositoryBean
-public interface CrudRepository<T, ID> extends Repository<T, ID> {
+public interface ICrudRepository<T, ID> extends Repository<T, ID> {
 
     <S extends T> S save(S entity);
 
@@ -16,9 +17,9 @@ public interface CrudRepository<T, ID> extends Repository<T, ID> {
 
     boolean existsById(ID id);
 
-    Iterable<T> findAll();
+    List<T> findAll();
 
-    Iterable<T> findAllById(Iterable<ID> ids);
+    List<T> findAllById(Iterable<ID> ids);
 
     long count();
 
