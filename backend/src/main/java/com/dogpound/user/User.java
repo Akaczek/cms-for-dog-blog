@@ -22,25 +22,17 @@ public class User {
     @Column(name = "email", unique = true)
     private String email;
 
-    @Getter
-    @Setter
     @NotEmpty(message = "Name must not be empty")
     @Column(name = "name")
     private String name;
 
-    @Getter
-    @Setter
     @NotEmpty(message = "Password must not be empty")
     @Column(name = "password")
     private String password;
 
-    @Getter
-    @Setter
     @Column(name = "isAdmin", columnDefinition = "boolean default false")
     private boolean isAdmin;
 
-    @Getter
-    @Setter
     @Column(name = "isSuperAdmin", columnDefinition = "boolean default false")
     private boolean isSuperAdmin;
 
