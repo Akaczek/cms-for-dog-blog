@@ -5,7 +5,6 @@ import lombok.Value;
 
 @Value
 public class UserDtoFormUpdate {
-
     private String email;
     private String name;
     private Boolean isAdmin;

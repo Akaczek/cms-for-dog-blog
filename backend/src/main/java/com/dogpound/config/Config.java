@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "config")
 @Getter
@@ -17,29 +20,27 @@ public class Config {
     @Column(name = "id")
     private Long id;
 
-    @Getter
-    @Setter
     @NotEmpty(message = "Key must not be empty")
     @Column(name = "key", unique = true)
     private String key;
 
-    @Getter
-    @Setter
     @NotEmpty(message = "Value must not be empty")
     @Column(name = "value")
     private String value;
 
-    @Getter
-    @Setter
     @Column(name = "description")
     private String description;
 
-    @Getter
-    @Setter
     @Column(name = "lastEditedAt")
     private String lastEditedAt;
 
     @ManyToOne
-    private User user;
+    @JoinColumn(name = "lastEditedBy")
+    private User lastEditedBy;
 
+    @PrePersist
+    @PreUpdate
+    private void prePersist() {
+        lastEditedAt = Timestamp.valueOf(LocalDateTime.now()).toString();
+    }
 }

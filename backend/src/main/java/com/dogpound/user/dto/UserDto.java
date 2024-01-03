@@ -24,9 +24,9 @@ public class UserDto {
 
     private UserDto(User user) {
         id = user.getId();
-        this.email = user.getEmail();
-        this.name = user.getName();
-        this.isAdmin = user.isAdmin();
-        this.isSuperAdmin = user.isSuperAdmin();
+        email = user.getEmail();
+        name = user.getName();
+        isAdmin = user.isAdmin();
+        isSuperAdmin = user.isSuperAdmin();
     }
 }
