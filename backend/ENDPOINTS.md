@@ -16,3 +16,10 @@
 * POST /config
 * PATCH /config/{id}
 * DELETE /config/{id} 
+
+## Messages Controller
+
+* GET /messages
+* GET /messages/{id}
+* POST /messages
+* DELETE /messages/{id}
