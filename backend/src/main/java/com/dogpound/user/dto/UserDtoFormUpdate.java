@@ -7,13 +7,11 @@ import lombok.Value;
 public class UserDtoFormUpdate {
     private String email;
     private String name;
-    private Boolean isAdmin;
-    private Boolean isSuperAdmin;
+    private String role;
 
     public void updateUser(User user) {
         if (name != null) user.setName(name);
         if (email != null) user.setEmail(email);
-        if (isAdmin != null) user.setAdmin(isAdmin);
-        if (isSuperAdmin != null) user.setSuperAdmin(isSuperAdmin);
+        if (role != null) user.setRole(role);
     }
 }

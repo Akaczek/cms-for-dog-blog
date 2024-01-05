@@ -12,8 +12,7 @@ public class UserDto {
     private Long id;
     private String email;
     private String name;
-    private Boolean isAdmin;
-    private Boolean isSuperAdmin;
+    private String role;
 
     public static UserDto of(User user) {
         if (user == null) {
@@ -26,7 +25,6 @@ public class UserDto {
         id = user.getId();
         email = user.getEmail();
         name = user.getName();
-        isAdmin = user.isAdmin();
-        isSuperAdmin = user.isSuperAdmin();
+        role = user.getRole().toString();
     }
 }

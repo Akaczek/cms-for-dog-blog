@@ -1,5 +1,6 @@
 package com.dogpound.user.dto;
 
+import com.dogpound.user.Role;
 import com.dogpound.user.User;
 import lombok.Value;
 
@@ -8,8 +9,7 @@ public class UserDtoFormCreate {
     private String email;
     private String password;
     private String name;
-    private Boolean isAdmin;
-    private Boolean isSuperAdmin;
+    private String role;
 
     public User toUser() {
         User user = new User();
@@ -17,8 +17,7 @@ public class UserDtoFormCreate {
         user.setName(name);
         user.setPassword(password);
         user.setEmail(email);
-        user.setAdmin(isAdmin);
-        user.setSuperAdmin(isSuperAdmin);
+        user.setRole(role);
 
         return user;
     }
