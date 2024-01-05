@@ -1,11 +1,12 @@
 package com.dogpound.user;
 
-import com.dogpound.core.enums.Role;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+
+import static com.dogpound.user.Role.toEnum;
 
 @Entity
 @Table(name = "users")
@@ -67,5 +68,22 @@ public class User {
         if (isSuperAdmin) return Role.SUPERADMIN;
         if (isAdmin) return Role.ADMIN;
         return Role.USER;
+    }
+
+    public void setRole(String role) {
+        switch (toEnum(role)) {
+            case USER -> {
+                setAdmin(false);
+                setSuperAdmin(false);
+            }
+            case ADMIN -> {
+                setAdmin(true);
+                setSuperAdmin(false);
+            }
+            case SUPERADMIN -> {
+                setAdmin(true);
+                setSuperAdmin(true);
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.dogpound.user;
 
 import com.dogpound.user.dto.UserDto;
 import com.dogpound.user.dto.UserDtoFormCreate;
+import com.dogpound.user.dto.UserDtoFormPassword;
 import com.dogpound.user.dto.UserDtoFormUpdate;
 import com.dogpound.user.exceptions.UserException;
 import com.dogpound.user.exceptions.UserExceptionType;
@@ -53,13 +54,14 @@ public class UserService {
         repository.save(user);
     }
 
-    public void modifyUserPassword(Long id, Map<String, String> passwordMap) {
-        if (!passwordMap.containsKey("oldPassword") || !passwordMap.containsKey("newPassword")) {
+    public void modifyUserPassword(Long id, UserDtoFormPassword form) {
+        String oldPassword = form.getOldPassword();
+        String newPassword = form.getNewPassword();
+
+        if (oldPassword == null || newPassword == null) {
             throw new WrongDataStructureException();
         }
 
-        String oldPassword = passwordMap.get("oldPassword");
-        String newPassword = passwordMap.get("newPassword");
         validatePassword(newPassword);
 
         User user = repository.findById(id).orElseThrow(UserNotFound::new);

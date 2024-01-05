@@ -2,6 +2,7 @@ package com.dogpound.user;
 
 import com.dogpound.user.dto.UserDto;
 import com.dogpound.user.dto.UserDtoFormCreate;
+import com.dogpound.user.dto.UserDtoFormPassword;
 import com.dogpound.user.dto.UserDtoFormUpdate;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -54,9 +55,9 @@ public class UserController {
     }
 
     @PatchMapping("/{id}/password")
-    public ResponseEntity<Void> modifyUserPassword(@PathVariable Long id, @RequestBody Map<String, String> passwordMap) {
+    public ResponseEntity<Void> modifyUserPassword(@PathVariable Long id, @RequestBody UserDtoFormPassword form) {
         logger.info("Modify password user id=" + id);
-        service.modifyUserPassword(id, passwordMap);
+        service.modifyUserPassword(id, form);
         return ResponseEntity.noContent().build();
     }
 
