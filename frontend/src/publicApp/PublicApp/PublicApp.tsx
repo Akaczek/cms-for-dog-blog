@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Header, Footer, HeroBanner, Text, DogItem } from '../../components';
+import { DogItem, Footer, Gallery, Header, HeroBanner, Text } from '../../components';
 import { ContentWrapper } from './PublicApp.styles';
 
 const PublicApp: FC = () => {
@@ -8,6 +8,7 @@ const PublicApp: FC = () => {
     <>
       <Header />
       <ContentWrapper>
+        <Gallery />
         <DogItem />
         <HeroBanner />
         <Text />

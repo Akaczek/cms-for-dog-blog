@@ -7,7 +7,7 @@ interface Size {
   xxl: string;
 }
 
-const size: Size = {
+export const size: Size = {
   xs: '400px', // for small screen mobile
   sm: '600px', // for mobile screen
   md: '900px', // for tablets
