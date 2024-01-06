@@ -1,6 +1,5 @@
 package com.dogpound.user.dto;
 
-import com.dogpound.user.Role;
 import com.dogpound.user.User;
 import lombok.Value;
 
