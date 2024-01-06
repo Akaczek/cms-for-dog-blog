@@ -28,6 +28,12 @@ public class UserController {
         return service.getAllUsers();
     }
 
+    @GetMapping("/logged")
+    public UserDto getLoggedUser() {
+        logger.info("Get logged user");
+        return service.getLoggedUser();
+    }
+
     @GetMapping("/{id}")
     public UserDto getUserById(@PathVariable Long id) {
         logger.info("Get user by id=" + id);

@@ -1,28 +1,37 @@
 package com.dogpound.auth;
 
 import com.dogpound.auth.dto.LoginDto;
+import com.dogpound.auth.exceptions.BadCredentialsException;
 import com.dogpound.user.IUserRepository;
+import com.dogpound.user.User;
+import com.dogpound.user.dto.UserDto;
+import com.dogpound.validation.exceptions.WrongDataStructureException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-    private final RestAuthenticationManager authenticationManager;
-    Logger logger = LoggerFactory.getLogger(AuthService.class);
+    private final IUserRepository repository;
 
-    public void login(LoginDto form) {
-        logger.info("JESTEM");
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(form.getEmail(), form.getPassword());
-        Authentication authentication = authenticationManager.authenticate(token);
-        logger.info("AUTH" + authentication.toString());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    public UserDto login(LoginDto form) {
+        String email = form.getEmail();
+        String password = form.getPassword();
+
+        if (email == null || password == null) {
+            throw new WrongDataStructureException();
+        }
+        User user = repository.findByEmail(email).orElseThrow(BadCredentialsException::new);
+        if (user.getPassword().equals(password)) {
+            SessionContext.put("userId", user.getId().toString());
+            return UserDto.of(user);
+        }
+
+        throw new BadCredentialsException();
+    }
+
+    public void logout() {
+        SessionContext.remove("userId");
     }
 }

@@ -1,6 +1,7 @@
 package com.dogpound.auth;
 
 import com.dogpound.auth.dto.LoginDto;
+import com.dogpound.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,15 @@ public class AuthController {
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody LoginDto form) {
+    public UserDto login(@RequestBody LoginDto form) {
         logger.info("Login");
-        service.login(form);
-        return ResponseEntity.noContent().build();
+        return service.login(form);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        logger.info("Logout");
+        service.logout();
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,6 +1,5 @@
 package com.dogpound.validation;
 
-import com.dogpound.auth.LoggedUser;
 import com.dogpound.validation.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -8,9 +7,6 @@ import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -57,22 +53,6 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
 
         return ResponseEntity.badRequest().body(errorBody);
-    }
-
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<RestErrorBody> handleAuthenticationException(AuthenticationException ex) {
-        RestErrorBody errorBody = createRestError(request, ex.getMessage(), HttpStatus.UNAUTHORIZED, ex);
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
-    }
-
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<RestErrorBody> handleAuthenticationException(AccessDeniedException ex) {
-        HttpStatus status = HttpStatus.UNAUTHORIZED;
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof LoggedUser) {
-            status = HttpStatus.FORBIDDEN;
-        }
-        RestErrorBody errorBody = createRestError(request, ex.getMessage(), status, ex);
-        return ResponseEntity.status(status).body(errorBody);
     }
 
     @ExceptionHandler(SessionExpiredException.class)
