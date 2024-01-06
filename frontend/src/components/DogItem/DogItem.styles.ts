@@ -71,7 +71,7 @@ export const DogInfoItemTitle = styled.dt`
     left: 0;
     right: 0;
     margin: 0;
-    border-top: 1px dotted #313131;
+    border-top: 1px dotted ${(props) => props.theme.colors.lightBrown};
 
     @media ${device.md} {
       content: ' - ';
@@ -90,6 +90,7 @@ export const DogInfoItemValue = styled.dd`
 
 export const DogImage = styled.img`
   max-width: 500px;
+  width: 100%;
   object-fit: cover;
   flex-grow: 1;
 

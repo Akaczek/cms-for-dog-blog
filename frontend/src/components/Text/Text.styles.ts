@@ -43,6 +43,7 @@ export const TextWrapper = styled.div<TextWrapperProps>`
 export const Image = styled.img`
   object-fit: cover;
   max-width: 500px;
+  width: 100%;
   flex-grow: 1;
 `;
 
