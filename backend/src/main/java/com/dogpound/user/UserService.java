@@ -1,5 +1,6 @@
 package com.dogpound.user;
 
+import com.dogpound.auth.AuthService;
 import com.dogpound.user.dto.UserDto;
 import com.dogpound.user.dto.UserDtoFormCreate;
 import com.dogpound.user.dto.UserDtoFormPassword;
@@ -18,9 +19,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final IUserRepository repository;
+    private final AuthService authService;
 
     public List<UserDto> getAllUsers() {
         return repository.findAll().stream().map(UserDto::of).collect(Collectors.toList());
+    }
+
+    public UserDto getLoggedUser() {
+        Long id = authService.getPrincipal().orElseThrow(UserNotFound::new).getId();
+        return repository.findById(id).map(UserDto::of).orElseThrow(UserNotFound::new);
     }
 
     public UserDto getUserById(Long id) {

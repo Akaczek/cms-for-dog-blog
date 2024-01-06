@@ -2,6 +2,7 @@ package com.dogpound.auth;
 
 import com.dogpound.user.Role;
 import com.dogpound.user.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,10 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LoggedUser implements UserDetails {
+    @Getter
     private final Long id;
     private final String email;
     private final String password;
+    @Getter
     private final String name;
+    @Getter
     private final Role role;
 
     public LoggedUser(User user) {

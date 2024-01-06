@@ -22,6 +22,6 @@ public class AuthController {
     public ResponseEntity<Void> login(@RequestBody LoginDto form) {
         logger.info("Login");
         service.login(form);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }
