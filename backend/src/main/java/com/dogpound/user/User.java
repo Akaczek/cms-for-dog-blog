@@ -6,7 +6,7 @@ import lombok.Setter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
-import static com.dogpound.user.Role.toEnum;
+import static com.dogpound.user.Role.of;
 
 @Entity
 @Table(name = "users")
@@ -71,7 +71,7 @@ public class User {
     }
 
     public void setRole(String role) {
-        switch (toEnum(role)) {
+        switch (of(role)) {
             case USER -> {
                 setAdmin(false);
                 setSuperAdmin(false);

@@ -23,3 +23,9 @@
 * GET /messages/{id}
 * POST /messages
 * DELETE /messages/{id}
+
+## Auth Controller
+
+* GET /auth/logged
+* POST /auth/login
+* POST /auth/logout
