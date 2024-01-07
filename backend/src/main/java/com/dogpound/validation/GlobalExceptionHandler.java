@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,9 +57,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(SessionExpiredException.class)
-    public ResponseEntity<RestErrorBody> handleHttpSessionRequiredException(SessionExpiredException ex) {
+    public ResponseEntity<RestErrorBody> handleHttpSessionExpiredException(SessionExpiredException ex) {
         RestErrorBody errorBody = createRestError(request, ex.getMessage(), HttpStatus.UNAUTHORIZED, ex);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<RestErrorBody> handleIOException(RestIOException ex) {
+        RestErrorBody errorBody = createRestError(request, ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
     }
 
     public static RestErrorBody createRestError(HttpServletRequest request, String message, HttpStatus status,
