@@ -1,5 +1,6 @@
 package com.dogpound.user;
 
+import com.dogpound.auth.SessionContext;
 import com.dogpound.user.dto.UserDto;
 import com.dogpound.user.dto.UserDtoFormCreate;
 import com.dogpound.user.dto.UserDtoFormPassword;
@@ -12,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +22,15 @@ public class UserService {
 
     public List<UserDto> getAllUsers() {
         return repository.findAll().stream().map(UserDto::of).collect(Collectors.toList());
+    }
+
+    public UserDto getLoggedUser() {
+        String stringId = SessionContext.get("userId");
+        if (stringId == null) {
+            throw new UserNotFound();
+        }
+        Long id = Long.valueOf(stringId);
+        return repository.findById(id).map(UserDto::of).orElseThrow(UserNotFound::new);
     }
 
     public UserDto getUserById(Long id) {

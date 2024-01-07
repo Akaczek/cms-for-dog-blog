@@ -1,9 +1,6 @@
 package com.dogpound.validation;
 
-import com.dogpound.validation.exceptions.BadRequestException;
-import com.dogpound.validation.exceptions.ForbiddenException;
-import com.dogpound.validation.exceptions.NotFoundException;
-import com.dogpound.validation.exceptions.UnauthorizedException;
+import com.dogpound.validation.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolationException;
@@ -56,6 +53,12 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
 
         return ResponseEntity.badRequest().body(errorBody);
+    }
+
+    @ExceptionHandler(SessionExpiredException.class)
+    public ResponseEntity<RestErrorBody> handleHttpSessionRequiredException(SessionExpiredException ex) {
+        RestErrorBody errorBody = createRestError(request, ex.getMessage(), HttpStatus.UNAUTHORIZED, ex);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorBody);
     }
 
     public static RestErrorBody createRestError(HttpServletRequest request, String message, HttpStatus status,

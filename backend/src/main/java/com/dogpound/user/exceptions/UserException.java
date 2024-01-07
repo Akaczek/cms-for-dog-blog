@@ -10,7 +10,6 @@ public class UserException extends BadRequestException {
             case EMAIL_TAKEN -> "ERRORS.USER.400.EMAIL_TAKEN";
             case SAME_PASSWORD -> "ERRORS.USER.400.SAME_PASSWORD";
             case WRONG_PASSWORD -> "ERRORS.USER.400.WRONG_PASSWORD";
-            default -> "ERRORS.USER.400";
         };
     }
 }
