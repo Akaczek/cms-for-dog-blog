@@ -4,6 +4,9 @@ import com.dogpound.config.Config;
 import com.dogpound.user.User;
 import lombok.Value;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Value
 public class ConfigDtoFormUpdate {
     private String key;
@@ -15,6 +18,7 @@ public class ConfigDtoFormUpdate {
         if (key != null) config.setKey(key);
         if (value != null) config.setValue(value);
         if (description != null) config.setDescription(description);
+        config.setLastEditedAt(Timestamp.valueOf(LocalDateTime.now()).toString());
         if (user != null) config.setLastEditedBy(user);
     }
 }

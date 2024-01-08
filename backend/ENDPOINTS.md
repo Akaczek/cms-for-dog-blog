@@ -1,3 +1,18 @@
+## Auth Controller
+
+* GET /auth/logged
+* POST /auth/login
+* POST /auth/logout
+ 
+## TODO: AddableComponents Controller
+
+* GET /components
+* GET /components/types
+* GET /components/{id}
+* POST /components
+* PATCH /components/{id}
+* DELETE /components/{id}
+
 ## User Controller
 
 * GET /users
@@ -25,8 +40,7 @@
 * POST /messages
 * DELETE /messages/{id}
 
-## Auth Controller
+## Image Controller
 
-* GET /auth/logged
-* POST /auth/login
-* POST /auth/logout
+* GET /images/{path}
+* POST /images
