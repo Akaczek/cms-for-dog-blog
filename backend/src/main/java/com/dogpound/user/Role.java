@@ -1,6 +1,7 @@
 package com.dogpound.user;
 
-import com.dogpound.user.exceptions.InvalidRoleException;
+import com.dogpound.user.exceptions.RoleException;
+import com.dogpound.user.exceptions.RoleExceptionType;
 
 public enum Role {
     SUPERADMIN,
@@ -13,16 +14,16 @@ public enum Role {
             case USER -> { return "user"; }
             case ADMIN -> { return "admin"; }
             case SUPERADMIN -> { return "superadmin"; }
-            default -> { throw new InvalidRoleException(); }
+            default -> { throw new RoleException(RoleExceptionType.INVALID_ROLE); }
         }
     }
 
-    public static Role toEnum(String role) {
+    public static Role of(String role) {
         switch (role) {
             case "user" -> { return USER; }
             case "admin" -> { return ADMIN; }
             case "superadmin" -> { return SUPERADMIN; }
-            default -> { throw new InvalidRoleException(); }
+            default -> { throw new RoleException(RoleExceptionType.INVALID_ROLE); }
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.dogpound.auth;
 
-import com.dogpound.user.User;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

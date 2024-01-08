@@ -5,6 +5,7 @@
 * GET /users/search/{text}
 * POST /users
 * PATCH /users/{id}
+* PATCH /users/{id}/role
 * PATCH /users/{id}/password
 * DELETE /users/{id}
 
@@ -23,3 +24,9 @@
 * GET /messages/{id}
 * POST /messages
 * DELETE /messages/{id}
+
+## Auth Controller
+
+* GET /auth/logged
+* POST /auth/login
+* POST /auth/logout
