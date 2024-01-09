@@ -15,10 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,6 +40,15 @@ public class ImageService {
         }
     }
 
+    public PathResource getImage(String fileName) {
+        Path targetPath = resolveFile(fileName);
+        if (!Files.exists(targetPath)) {
+            throw new ImageNotFound();
+        }
+
+        return new PathResource(targetPath);
+    }
+
     public String uploadImage(MultipartFile imageFile) {
         String fileExtension = Optional.ofNullable(imageFile.getOriginalFilename())
                 .flatMap(ImageService::getFileExtension)
@@ -57,19 +63,23 @@ public class ImageService {
                 in.transferTo(out);
             }
         } catch (IOException ex) {
-            throw new RestIOException("ERRORS.IMAGE.500");
+            throw new RestIOException("ERRORS.IMAGE.500.UPLOAD");
         }
 
         return targetFileName;
     }
 
-    public PathResource getImage(String fileName) {
+    public void deleteImage(String fileName) {
         Path targetPath = resolveFile(fileName);
-        if (!Files.exists(targetPath)) {
+
+        try {
+            Files.delete(targetPath);
+        } catch (NoSuchFileException e1) {
             throw new ImageNotFound();
+        } catch (IOException e2) {
+            throw new RestIOException("ERRORS.IMAGE.500.DELETE");
         }
 
-        return new PathResource(targetPath);
     }
 
     private static Optional<String> getFileExtension(String fileName) {

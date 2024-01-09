@@ -22,6 +22,16 @@ public class ImageController {
     private final ImageService imageService;
     Logger logger = LoggerFactory.getLogger(ImageController.class);
 
+    @GetMapping(
+            value = "/{fileName}",
+            produces = { MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
+    public ResponseEntity<Resource> getImage(@PathVariable String fileName) {
+        logger.info("Get image filename=" + fileName);
+        authService.checkAuthority(Role.USER);
+        PathResource resource = imageService.getImage(fileName);
+        return ResponseEntity.ok(resource);
+    }
+
     @PostMapping(
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE)
@@ -31,14 +41,12 @@ public class ImageController {
         return imageService.uploadImage(file);
     }
 
-    @GetMapping(
-            value = "/{fileName}",
-            produces = { MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
-    public ResponseEntity<Resource> getImage(@PathVariable String fileName) {
-        logger.info("Get image filename=" + fileName);
+    @DeleteMapping("/{fileName}")
+    public ResponseEntity<Void> deleteImage(@PathVariable String fileName) {
+        logger.info("Delete image filename=" + fileName);
         authService.checkAuthority(Role.USER);
-        PathResource resource = imageService.getImage(fileName);
-        return ResponseEntity.ok(resource);
+        imageService.deleteImage(fileName);
+        return ResponseEntity.ok().build();
     }
 
 }
