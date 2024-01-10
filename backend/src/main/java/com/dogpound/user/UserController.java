@@ -1,7 +1,6 @@
 package com.dogpound.user;
 
 import com.dogpound.auth.AuthService;
-import com.dogpound.auth.LoggedUser;
 import com.dogpound.user.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor

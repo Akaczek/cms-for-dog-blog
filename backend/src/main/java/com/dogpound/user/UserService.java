@@ -15,10 +15,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final IUserRepository repository;
-    private final AuthService authService;
 
     public List<UserDto> getAllUsers() {
-
         return repository.findAll().stream().map(UserDto::of).collect(Collectors.toList());
     }
 
