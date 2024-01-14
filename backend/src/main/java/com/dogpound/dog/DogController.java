@@ -1,14 +1,15 @@
 package com.dogpound.dog;
 
 import com.dogpound.auth.AuthService;
+import com.dogpound.common.dto.DtoFormImage;
 import com.dogpound.dog.dto.DogDto;
 import com.dogpound.dog.dto.DogDtoFormCreate;
-import com.dogpound.dog.dto.DogDtoFormImage;
 import com.dogpound.dog.dto.DogDtoFormUpdate;
 import com.dogpound.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/dogs")
@@ -64,7 +66,7 @@ public class DogController {
     }
 
     @PatchMapping("/{id}/image")
-    public String updateDogImage(@PathVariable Long id, @ModelAttribute DogDtoFormImage form) {
+    public String updateDogImage(@PathVariable Long id, @ModelAttribute DtoFormImage form) {
         logger.info("Update dog image id=" + id);
         authService.checkAuthority(Role.USER);
         return dogService.updateDogImage(id, form);

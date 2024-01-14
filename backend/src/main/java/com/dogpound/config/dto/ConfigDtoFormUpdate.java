@@ -12,7 +12,6 @@ public class ConfigDtoFormUpdate {
     private String key;
     private String value;
     private String description;
-    private Long userId;
 
     public void updateConfig(Config config, User user) {
         if (key != null) config.setKey(key);

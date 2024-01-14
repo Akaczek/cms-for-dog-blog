@@ -1,7 +1,8 @@
 package com.dogpound.image;
 
+import com.dogpound.image.exceptions.ImageException;
+import com.dogpound.image.exceptions.ImageExceptionType;
 import com.dogpound.image.exceptions.ImageNotFound;
-import com.dogpound.image.exceptions.InvalidImagePath;
 import com.dogpound.validation.exceptions.RestIOException;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -16,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -70,6 +70,7 @@ public class ImageService {
     }
 
     public void deleteImage(String fileName) {
+        if (fileName == null) return;
         Path targetPath = resolveFile(fileName);
 
         try {
@@ -79,7 +80,14 @@ public class ImageService {
         } catch (IOException e2) {
             throw new RestIOException("ERRORS.IMAGE.500.DELETE");
         }
+    }
 
+    public void validateImageUrlOrFile(String imageUrl, MultipartFile imageFile) {
+        if (imageUrl == null && imageFile == null) {
+            throw new ImageException(ImageExceptionType.URL_OR_FILE);
+        } else if (imageUrl != null && imageFile != null) {
+            throw new ImageException(ImageExceptionType.URL_OR_FILE);
+        }
     }
 
     private static Optional<String> getFileExtension(String fileName) {
@@ -111,7 +119,7 @@ public class ImageService {
         try {
             return imageStorageDirectory.resolve(fileName);
         } catch (InvalidPathException ex) {
-            throw new InvalidImagePath();
+            throw new ImageException(ImageExceptionType.INVALID_PATH);
         }
     }
 }

@@ -12,7 +12,6 @@ public class ConfigDtoFormCreate {
     private String key;
     private String value;
     private String description;
-    private Long userId;
 
     public Config toConfig(User user) {
         Config config = new Config();

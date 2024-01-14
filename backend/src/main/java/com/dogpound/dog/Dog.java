@@ -1,5 +1,6 @@
 package com.dogpound.dog;
 
+import com.dogpound.dog.dto.DogDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -47,7 +48,7 @@ public class Dog {
     @Column(name = "grooming")
     private String grooming;
 
-    public Dog(Dog dog) {
+    public Dog(DogDto dog) {
         this.id = dog.getId();
         this.name = dog.getName();
         this.imageUrl = dog.getImageUrl();
