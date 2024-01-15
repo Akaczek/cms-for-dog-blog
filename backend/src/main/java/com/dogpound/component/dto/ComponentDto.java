@@ -2,11 +2,10 @@ package com.dogpound.component.dto;
 
 import com.dogpound.component.Component;
 import com.dogpound.gallery.dto.GalleryDto;
-import com.dogpound.gallery.galleryitem.GalleryItem;
-import com.dogpound.gallery.galleryitem.dto.GalleryItemDto;
 import com.dogpound.dog.dto.DogDto;
 import com.dogpound.component.link.Link;
 import com.dogpound.component.link.dto.LinkDto;
+import com.dogpound.page.Page;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +28,7 @@ public class ComponentDto {
     private DogDto dog;
     private GalleryDto gallery;
     private List<LinkDto> links;
+    private List<Long> pages;
 
     public static ComponentDto of(Component component) {
         if (component == null) {
@@ -46,8 +46,9 @@ public class ComponentDto {
         path = component.getPath();
         type = component.getType().toString();
         dog = DogDto.of(component.getDog());
-        links = getLinksDto(component.getLinks());
         gallery = GalleryDto.of(component.getGallery());
+        links = getLinksDto(component.getLinks());
+        pages = getPagesIds(component.getPages());
     }
 
     private List<LinkDto> getLinksDto(List<Link> links) {
@@ -55,6 +56,13 @@ public class ComponentDto {
             return Collections.emptyList();
         }
         return links.stream().map(LinkDto::of).collect(Collectors.toList());
+    }
+
+    private List<Long> getPagesIds(List<Page> pages) {
+        if (pages == null) {
+            return Collections.emptyList();
+        }
+        return pages.stream().map(Page::getId).collect(Collectors.toList());
     }
 
 }

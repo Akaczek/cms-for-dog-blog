@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,10 @@ public class ComponentService {
     private final GalleryService galleryService;
     private final DogService dogService;
     private final ImageService imageService;
+
+    public List<String> getComponentTypes() {
+        return Arrays.stream(ComponentType.values()).map(ComponentType::toString).collect(Collectors.toList());
+    }
 
     public List<ComponentDto> getAllComponents() {
         return repository.findAll().stream().map(ComponentDto::of).collect(Collectors.toList());
