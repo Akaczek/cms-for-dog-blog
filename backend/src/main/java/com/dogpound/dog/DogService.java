@@ -1,8 +1,8 @@
 package com.dogpound.dog;
 
+import com.dogpound.common.dto.DtoFormImage;
 import com.dogpound.dog.dto.DogDto;
 import com.dogpound.dog.dto.DogDtoFormCreate;
-import com.dogpound.dog.dto.DogDtoFormImage;
 import com.dogpound.dog.dto.DogDtoFormUpdate;
 import com.dogpound.dog.exceptions.DogException;
 import com.dogpound.dog.exceptions.DogExceptionType;
@@ -36,10 +36,12 @@ public class DogService {
 
     public DogDto createDog(DogDtoFormCreate form) {
         validateName(form.getName());
-        validateImageUrlOrFile(form.getImageUrl(), form.getImageFile());
+        String imageUrl = form.getImageUrl();
+        MultipartFile imageFile = form.getImageFile();
+        imageService.validateImageUrlOrFile(imageUrl, imageFile);
 
         Dog dog = form.toDog();
-        handleDogImage(dog, form.getImageUrl(), form.getImageFile());
+        handleDogImage(dog, imageUrl, imageFile);
 
         return DogDto.of(repository.save(dog));
     }
@@ -52,13 +54,18 @@ public class DogService {
         repository.save(dog);
     }
 
-    public String updateDogImage(Long id, DogDtoFormImage form) {
+    public String updateDogImage(Long id, DtoFormImage form) {
         Dog dog = repository.findById(id).orElseThrow(DogNotFound::new);
-        validateImageUrlOrFile(form.getImageUrl(), form.getImageFile());
+
+        String imageUrl = form.getImageUrl();
+        MultipartFile imageFile = form.getImageFile();
+        imageService.validateImageUrlOrFile(imageUrl, imageFile);
+
         String prevUrl = dog.getImageUrl();
-        handleDogImage(dog, form.getImageUrl(), form.getImageFile());
+        handleDogImage(dog, imageUrl, imageFile);
         imageService.deleteImage(prevUrl);
         repository.save(dog);
+
         return dog.getImageUrl();
     }
 
@@ -72,14 +79,6 @@ public class DogService {
     private void validateName(String name) {
         if (repository.existsByName(name)) {
             throw new DogException(DogExceptionType.NAME_TAKEN);
-        }
-    }
-
-    private void validateImageUrlOrFile(String imageUrl, MultipartFile imageFile) {
-        if (imageUrl == null && imageFile == null) {
-            throw new DogException(DogExceptionType.URL_OR_FILE);
-        } else if (imageUrl != null && imageFile != null) {
-            throw new DogException(DogExceptionType.URL_OR_FILE);
         }
     }
 

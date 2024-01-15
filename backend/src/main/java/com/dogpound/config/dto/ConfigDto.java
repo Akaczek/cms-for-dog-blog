@@ -1,7 +1,7 @@
 package com.dogpound.config.dto;
 
 import com.dogpound.config.Config;
-import com.dogpound.user.User;
+import com.dogpound.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ public class ConfigDto {
     private String value;
     private String description;
     private String lastEditedAt;
-    private User lastEditedBy;
+    private UserDto lastEditedBy;
 
     public static ConfigDto of(Config config) {
         if (config == null) {
@@ -30,6 +30,6 @@ public class ConfigDto {
         value = config.getValue();
         description = config.getDescription();
         lastEditedAt = config.getLastEditedAt();
-        lastEditedBy = config.getLastEditedBy();
+        lastEditedBy = UserDto.of(config.getLastEditedBy());
     }
 }

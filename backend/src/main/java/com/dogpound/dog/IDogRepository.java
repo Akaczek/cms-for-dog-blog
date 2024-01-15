@@ -1,6 +1,6 @@
 package com.dogpound.dog;
 
-import com.dogpound.core.interfaces.ICrudRepository;
+import com.dogpound.common.interfaces.ICrudRepository;
 
 import java.util.List;
 

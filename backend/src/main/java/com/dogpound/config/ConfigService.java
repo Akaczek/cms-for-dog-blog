@@ -1,5 +1,8 @@
 package com.dogpound.config;
 
+import com.dogpound.auth.AuthService;
+import com.dogpound.auth.LoggedUser;
+import com.dogpound.auth.exceptions.LoggedUserNotFound;
 import com.dogpound.config.dto.ConfigDto;
 import com.dogpound.config.dto.ConfigDtoFormCreate;
 import com.dogpound.config.dto.ConfigDtoFormUpdate;
@@ -8,6 +11,7 @@ import com.dogpound.config.exceptions.ConfigExceptionType;
 import com.dogpound.config.exceptions.ConfigNotFound;
 import com.dogpound.user.IUserRepository;
 import com.dogpound.user.User;
+import com.dogpound.user.UserService;
 import com.dogpound.user.exceptions.UserNotFound;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,7 @@ import java.util.stream.Collectors;
 public class ConfigService {
     private final IConfigRepository configRepository;
     private final IUserRepository userRepository;
+    private final AuthService authService;
 
     public List<ConfigDto> getAllConfig() {
         return configRepository.findAll().stream().map(ConfigDto::of).collect(Collectors.toList());
@@ -38,7 +43,8 @@ public class ConfigService {
             throw new ConfigException(ConfigExceptionType.KEY_TAKEN);
         }
 
-        User user = userRepository.findById(form.getUserId()).orElseThrow(UserNotFound::new);
+        Long loggedUserId = authService.getLoggedUser().getId();
+        User user = userRepository.findById(loggedUserId).orElseThrow(LoggedUserNotFound::new);
         Config config = form.toConfig(user);
 
         return ConfigDto.of(configRepository.save(config));
@@ -51,12 +57,9 @@ public class ConfigService {
             throw new ConfigException(ConfigExceptionType.KEY_TAKEN);
         }
 
-        if (form.getUserId() != null) {
-            User user = userRepository.findById(form.getUserId()).orElseThrow(UserNotFound::new);
-            form.updateConfig(config, user);
-        } else {
-            form.updateConfig(config, null);
-        }
+        Long loggedUserId = authService.getLoggedUser().getId();
+        User user = userRepository.findById(loggedUserId).orElseThrow(LoggedUserNotFound::new);
+        form.updateConfig(config, user);
 
         configRepository.save(config);
     }

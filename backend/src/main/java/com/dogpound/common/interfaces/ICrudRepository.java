@@ -1,4 +1,4 @@
-package com.dogpound.core.interfaces;
+package com.dogpound.common.interfaces;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
