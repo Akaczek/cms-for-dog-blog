@@ -29,6 +29,13 @@ public class ComponentController {
     private final ComponentService componentService;
     Logger logger = LoggerFactory.getLogger(ComponentController.class);
 
+    @GetMapping("/types")
+    public List<String> getComponentTypes() {
+        logger.info("Get component types");
+        authService.checkAuthority(Role.USER);
+        return componentService.getComponentTypes();
+    }
+
     @GetMapping
     public List<ComponentDto> getAllComponents() {
         logger.info("Get all components");

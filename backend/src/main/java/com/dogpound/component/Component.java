@@ -6,6 +6,7 @@ import com.dogpound.gallery.Gallery;
 import com.dogpound.gallery.galleryitem.GalleryItem;
 import com.dogpound.dog.Dog;
 import com.dogpound.component.link.Link;
+import com.dogpound.page.Page;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -51,6 +52,9 @@ public class Component {
 
     @OneToMany(mappedBy = "component", cascade = CascadeType.ALL)
     private List<Link> links;
+
+    @ManyToMany(mappedBy = "components")
+    private List<Page> pages;
 
 
     public void setTypeFromString(String type) {
