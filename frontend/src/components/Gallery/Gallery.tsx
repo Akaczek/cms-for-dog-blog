@@ -11,7 +11,7 @@ import {
   SwipeRightButton,
 } from './Gallery.styles';
 import dogPaw from '../../assets/paw.svg';
-import { useWindowSize } from '../../utils/hooks';
+import { useWindowSize } from '../../lib/hooks';
 import { arrow_left, arrow_right } from '../../assets/icons';
 
 const mockedList = [
