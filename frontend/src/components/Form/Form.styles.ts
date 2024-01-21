@@ -77,6 +77,4 @@ export const FormButton = styled.button`
   &:hover {
     background-color: ${(props) => props.theme.colors.lightGrey};
   }
-
-
 `;
