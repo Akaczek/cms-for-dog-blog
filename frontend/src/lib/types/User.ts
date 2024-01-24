@@ -3,7 +3,7 @@ export interface User {
   email: string;
   name: string;
   role: string;
-  authorities: string[];
+  authorities?: string[];
 }
 
 export default User;
