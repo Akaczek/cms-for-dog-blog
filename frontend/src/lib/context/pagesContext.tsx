@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, FC } from "react";
+import { createContext, useState, FC } from "react";
 import axios from "axios";
 
 import { Page } from "../types";
@@ -6,7 +6,7 @@ import { backendURL } from "../constants";
 
 export const PagesContext = createContext<{
   pages: Page[];
-  getPages: (pages: Page[]) => void;
+  getPages: () => void;
 }>(null);
 
 export const PagesProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -21,10 +21,6 @@ export const PagesProvider: FC<{ children: React.ReactNode }> = ({ children }) =
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    getPages();
-  }, []);
 
   return (
     <PagesContext.Provider value={{ pages, getPages }}>

@@ -4,6 +4,7 @@ export const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
   width: 100%;
 `;
 
@@ -23,40 +24,48 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   display: flex;
-  justify-content: space-between;
+  box-sizing: border-box;
   align-items: center;
+  font-size: 1.6rem;
   width: 100%;
   padding: 0.5rem 0;
-  border-bottom: 1px solid ${(props) => props.theme.colors.lightGrey};
-
-  &:first-child {
-    border-top: 1px solid ${(props) => props.theme.colors.lightGrey};
-  }
+  margin-top: 10px;
+  border-top: 1px solid ${(props) => props.theme.colors.black};
+  border-bottom: 1px solid ${(props) => props.theme.colors.black};
+  background-color: ${(props) => props.theme.colors.lightGrey};
 `;
 
 export const SecondaryListItem = styled(ListItem)`
-  justify-content: flex-start;
   padding-left: 1rem;
+  margin-top: 0;
+  font-size: 1.4rem;
+  border-top: none;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 export const TertiaryListItem = styled(ListItem)`
-  justify-content: flex-start;
   padding-left: 2rem;
+  margin-top: 0;
+  font-size: 1.2rem;
+  border-top: none;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 export const ListItemValue = styled.span`
   margin-left: 1rem;
-  font-size: 1.6rem;
   font-weight: 600;
 `;
 
 export const ListItemSecondaryValue = styled.span`
-  font-size: 1.4rem;
+  color: ${(props) => props.theme.colors.grey};
+  margin-left: 10px;
+  font-size: 1rem;
   font-weight: 400;
 `;
 
 export const ListItemAction = styled.button`
   padding: 0.5rem 1rem;
+  margin-left: auto;
   margin-right: 1rem;
   cursor: pointer;
   font-size: 1.6rem;

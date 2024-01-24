@@ -16,7 +16,7 @@ export const FormContainer = styled.div`
 
 export const FormTitle = styled.h2`
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   text-transform: uppercase;
 `;
 
@@ -32,9 +32,9 @@ export const UserInfoWrapper = styled.div`
 `;
 
 export const UserInfoInput = styled.input`
-  padding: 0.5rem;
+  padding: 8px;
   border: 1px solid ${(props) => props.theme.colors.lightGrey};
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
   flex-grow: 1;
 
   &::placeholder {
@@ -49,7 +49,7 @@ export const UserInfoInput = styled.input`
 `;
 
 export const UserInfoTextArea = styled.textarea`
-  padding: 0.5rem;
+  padding: 8px;
   border: 1px solid ${(props) => props.theme.colors.lightGrey};
   resize: none;
 
@@ -65,7 +65,7 @@ export const UserInfoTextArea = styled.textarea`
 `;
 
 export const FormButton = styled.button`
-  padding: 0.5rem;
+  padding: 8px;
   width: 300px;
   border: 1px solid ${(props) => props.theme.colors.darkGrey};
   background-color: #fff;
