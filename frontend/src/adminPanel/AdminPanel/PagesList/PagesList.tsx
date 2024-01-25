@@ -1,59 +1,37 @@
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 
-import {
-  ListWrapper,
-  ListHeader,
-  List,
-  ListItem,
-  SecondaryListItem,
-  TertiaryListItem,
-  ListItemValue,
-  ListItemSecondaryValue,
-  ListItemAction,
-  ListItemActionIcon,
-} from '../../../shared/List/List.styles';
 import { PagesContext } from '../../../lib/context/pagesContext';
+import { useModal } from '../../../lib/hooks';
 import { Page } from '../../../lib/types';
+import {
+  List,
+  ListHeader,
+  ListWrapper,
+} from '../../../shared/List/List.styles';
+import Modal from '../../../shared/Modal';
+import AddPage from '../AddPage';
+import DeletePage from '../DeletePage';
+import PagesListItem from './PagesListItem';
 
 const PagesList: FC = () => {
   const { pages, getPages } = useContext(PagesContext);
+  const [isAddModalOpen, toggleAddModal] = useModal();
+  const [isDeleteModalOpen, toggleDeleteModal] = useModal();
+  const [selectedPage, setSelectedPage] = useState<Page | null>(null);
 
   useEffect(() => {
     getPages();
-  },[]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const renderPage = (page: Page, type: 'page' | 'subpage' | 'subsubpage') => {
-    switch (type) {
-      case 'page':
-        return (
-          <ListItem key={page.id}>
-            <ListItemValue>{page.name}</ListItemValue>
-            <ListItemSecondaryValue>{page.path}</ListItemSecondaryValue>
-            <ListItemAction>
-              <ListItemActionIcon />
-            </ListItemAction>
-          </ListItem>
-        );
-      case 'subpage':
-        return (
-          <SecondaryListItem key={page.id}>
-            <ListItemValue>{page.name}</ListItemValue>
-            <ListItemSecondaryValue>{page.path}</ListItemSecondaryValue>
-            <ListItemAction>
-              <ListItemActionIcon />
-            </ListItemAction>
-          </SecondaryListItem>
-        );
-      case 'subsubpage':
-        return (
-          <TertiaryListItem key={page.id}>
-            <ListItemValue>{page.name}</ListItemValue>
-            <ListItemSecondaryValue>{page.path}</ListItemSecondaryValue>
-          </TertiaryListItem>
-        );
-      default:
-        return null;
-    }
+  const handleOpenAddModal = (page: Page) => {
+    setSelectedPage(page);
+    toggleAddModal();
+  };
+
+  const handleOpenDeleteModal = (page: Page) => {
+    setSelectedPage(page);
+    toggleDeleteModal();
   };
 
   useEffect(() => {
@@ -62,19 +40,53 @@ const PagesList: FC = () => {
 
   return (
     <ListWrapper>
+      {isAddModalOpen && (
+        <Modal title={'Add page'} toggle={toggleAddModal}>
+          <AddPage
+            parentPage={selectedPage}
+            onClose={toggleAddModal}
+            isAddingToMainPage={selectedPage.path === '/'}
+          />
+        </Modal>
+      )}
+      {isDeleteModalOpen && (
+        <Modal title={'Delete page'} toggle={toggleDeleteModal}>
+          <DeletePage page={selectedPage} onClose={toggleDeleteModal} />
+        </Modal>
+      )}
       <ListHeader>Pages</ListHeader>
       <List>
         {pages.map((page) => {
           if (page.parentPageId === null) {
             return (
               <>
-                {renderPage(page, 'page')}
+                <PagesListItem
+                  key={page.id}
+                  page={page}
+                  pageType={'page'}
+                  handleOpenAddPageModal={handleOpenAddModal}
+                  handleOpenDeletePageModal={handleOpenDeleteModal}
+                />
                 {page.subpages.map((subpage) => {
                   return (
                     <>
-                      {renderPage(subpage, 'subpage')}
+                      <PagesListItem
+                        key={subpage.id}
+                        page={subpage}
+                        pageType={'subpage'}
+                        handleOpenAddPageModal={handleOpenAddModal}
+                        handleOpenDeletePageModal={handleOpenDeleteModal}
+                      />
                       {subpage.subpages.map((subsubpage) => {
-                        return renderPage(subsubpage, 'subsubpage');
+                        return (
+                          <PagesListItem
+                            key={subsubpage.id}
+                            page={subsubpage}
+                            pageType={'subsubpage'}
+                            handleOpenAddPageModal={handleOpenAddModal}
+                            handleOpenDeletePageModal={handleOpenDeleteModal}
+                          />
+                        );
                       })}
                     </>
                   );

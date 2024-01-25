@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ListWrapper = styled.div`
   display: flex;
@@ -35,6 +35,15 @@ export const ListItem = styled.li`
   background-color: ${(props) => props.theme.colors.lightGrey};
 `;
 
+export const MainListItem = styled(ListItem)`
+  margin-top: 0;
+  font-size: 32px;
+  font-weight: 600;
+  border-top: none;
+  border-bottom: 5px solid ${(props) => props.theme.colors.black};
+  background-color: ${(props) => props.theme.colors.white};
+`;
+
 export const SecondaryListItem = styled(ListItem)`
   padding-left: 1rem;
   margin-top: 0;
@@ -63,9 +72,12 @@ export const ListItemSecondaryValue = styled.span`
   font-weight: 400;
 `;
 
-export const ListItemAction = styled.button`
-  padding: 0.5rem 1rem;
+export const ActionsWrapper = styled.div`
   margin-left: auto;
+`;
+
+export const ListItemAction = styled.button`
+  padding: 5px 10px;
   margin-right: 1rem;
   cursor: pointer;
   font-size: 1.6rem;
@@ -83,6 +95,6 @@ export const ListItemAction = styled.button`
 `;
 
 export const ListItemActionIcon = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 `;
