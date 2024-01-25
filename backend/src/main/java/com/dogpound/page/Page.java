@@ -40,14 +40,14 @@ public class Page {
     @JoinColumn(name = "lastEditedBy")
     private User lastEditedBy;
 
-    @ManyToOne(cascade={CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name="page_id")
     private Page parentPage;
 
-    @OneToMany(mappedBy="parentPage")
+    @OneToMany(mappedBy="parentPage", cascade = CascadeType.ALL)
     private List<Page> subPages;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "addable_components_to_pages",
             joinColumns = { @JoinColumn(name = "page_id") },
