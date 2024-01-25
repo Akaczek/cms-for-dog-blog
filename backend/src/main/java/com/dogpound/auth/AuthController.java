@@ -18,7 +18,6 @@ public class AuthController {
     private final AuthService service;
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-
     @GetMapping("/logged")
     public LoggedUser getLoggedUser() {
         logger.info("Get logged user");
