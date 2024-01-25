@@ -1,12 +1,14 @@
-import { createContext, useState, useEffect, FC } from "react";
 import axios from "axios";
+import { FC, createContext, useState } from "react";
 
-import { Page } from "../types";
 import { backendURL } from "../constants";
+import { Page } from "../types";
 
 export const PagesContext = createContext<{
   pages: Page[];
-  getPages: (pages: Page[]) => void;
+  getPages: () => Promise<void>;
+  addPage: (pagePath: string, pageName: string, parentPageId?: number, isInHeader?: boolean) => Promise<void>;
+  deletePage: (pageId: number) => Promise<void>;
 }>(null);
 
 export const PagesProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -15,19 +17,39 @@ export const PagesProvider: FC<{ children: React.ReactNode }> = ({ children }) =
   const getPages = async () => {
     try {
       const response = await axios.get(`${backendURL}/pages`);
-      console.log(response.data);
       setPages(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    getPages();
-  }, []);
+  const addPage = async (pagePath: string, pageName: string, parentPageId?: number, isInHeader?: boolean) => {
+    try {
+      const response = await axios.post(`${backendURL}/pages`, {
+        path: pagePath,
+        name: pageName,
+        ...(parentPageId && { parentPageId }),
+        ...(isInHeader && { inHeader: isInHeader }),
+      });
+      console.log(response.data);
+      await getPages();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deletePage = async (pageId: number) => {
+    try {
+      const response = await axios.delete(`${backendURL}/pages/${pageId}`);
+      console.log(response.data);
+      await getPages();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <PagesContext.Provider value={{ pages, getPages }}>
+    <PagesContext.Provider value={{ pages, getPages, addPage, deletePage }}>
       {children}
     </PagesContext.Provider>
   );
