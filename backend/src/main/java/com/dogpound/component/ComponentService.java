@@ -51,21 +51,6 @@ public class ComponentService {
     public ComponentDto createComponent(ComponentDtoFormCreate form) {
         Component component = form.toComponent();
 
-        ComponentType type = ComponentType.of(form.getType());
-        if (isTypeExpected(type, ComponentType.DOG_ITEM)) {
-            validateComponentType(ComponentType.DOG_ITEM, form);
-            DogDto dogDto = dogService.getDogById(form.getDogId());
-            component.setDog(new Dog(dogDto));
-        } else if (isTypeExpected(type, ComponentType.GALLERY)) {
-            validateComponentType(ComponentType.GALLERY, form);
-            GalleryDto galleryDto = galleryService.getGalleryById(form.getGalleryId());
-            component.setGallery(new Gallery(galleryDto));
-        } else if (isTypeExpected(type, ComponentType.LINKS)) {
-            validateComponentType(ComponentType.LINKS, form);
-            List<Link> links = linkService.createMultipleLinks(component, form.getLinks());
-            component.setLinks(links);
-        }
-
         handleComponentImage(component, form.getImageUrl(), form.getImageFile());
         return ComponentDto.of(repository.save(component));
     }
@@ -136,23 +121,23 @@ public class ComponentService {
         if (type == null) {
             throw new ComponentException(ComponentExceptionType.INVALID_TYPE);
         }
-        switch (type) {
-            case DOG_ITEM -> {
-                if (form.getDogId() == null) {
-                    throw new ComponentException(ComponentExceptionType.DOG_ID_IS_NULL);
-                }
-            }
-            case LINKS -> {
-                if (form.getLinks() == null) {
-                    throw new ComponentException(ComponentExceptionType.LINKS_IS_NULL);
-                }
-            }
-            case GALLERY -> {
-                if (form.getGalleryId() == null) {
-                    throw new ComponentException(ComponentExceptionType.GALLERY_IS_NULL);
-                }
-            }
-        }
+//        switch (type) {
+//            case DOG_ITEM -> {
+//                if (form.getDogId() == null) {
+//                    throw new ComponentException(ComponentExceptionType.DOG_ID_IS_NULL);
+//                }
+//            }
+//            case LINKS -> {
+//                if (form.getLinks() == null) {
+//                    throw new ComponentException(ComponentExceptionType.LINKS_IS_NULL);
+//                }
+//            }
+//            case GALLERY -> {
+//                if (form.getGalleryId() == null) {
+//                    throw new ComponentException(ComponentExceptionType.GALLERY_IS_NULL);
+//                }
+//            }
+//        }
     }
 
     private void handleComponentImage(Component component, String imageUrl, MultipartFile imageFile) {
