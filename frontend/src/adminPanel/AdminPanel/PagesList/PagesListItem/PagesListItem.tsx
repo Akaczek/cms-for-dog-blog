@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import add from '../../../../assets/icons/add.svg';
 import deleteIcon from '../../../../assets/icons/delete.svg';
@@ -9,14 +10,15 @@ import {
   ListItemAction,
   ListItemActionIcon,
   ListItemSecondaryValue,
-  ListItemValue,
   MainListItem,
   SecondaryListItem,
   TertiaryListItem,
 } from '../../../../shared/List/List.styles';
+import { PagesListItemValue } from './PagesListItem.styles';
 import { IPagesListItemProps } from './PagesListItem.types';
 
 const PagesListItem: FC<IPagesListItemProps> = ({page, pageType, handleOpenAddPageModal, handleOpenDeletePageModal}) => {
+  const navigate = useNavigate();
 
   const renderPageListItem = (pageToRender: Page, type: 'page' | 'subpage' | 'subsubpage') => {
     switch (type) {
@@ -24,7 +26,7 @@ const PagesListItem: FC<IPagesListItemProps> = ({page, pageType, handleOpenAddPa
         if (pageToRender.path === '/')
           return (
             <MainListItem key={pageToRender.id}>
-              <ListItemValue>{pageToRender.name}</ListItemValue>
+              <PagesListItemValue onClick={() => navigate('/admin')}>{pageToRender.name}</PagesListItemValue>
               <ListItemSecondaryValue>{pageToRender.path}</ListItemSecondaryValue>
               <ActionsWrapper>
                 <ListItemAction onClick={() => handleOpenAddPageModal(pageToRender)}>
@@ -35,7 +37,7 @@ const PagesListItem: FC<IPagesListItemProps> = ({page, pageType, handleOpenAddPa
           );
         return (
           <ListItem key={pageToRender.id}>
-            <ListItemValue>{pageToRender.name}</ListItemValue>
+            <PagesListItemValue onClick={() => navigate('/admin' + pageToRender.path)}>{pageToRender.name}</PagesListItemValue>
             <ListItemSecondaryValue>{pageToRender.path}</ListItemSecondaryValue>
             <ActionsWrapper>
               <ListItemAction onClick={() => handleOpenAddPageModal(pageToRender)}>
@@ -50,7 +52,7 @@ const PagesListItem: FC<IPagesListItemProps> = ({page, pageType, handleOpenAddPa
       case 'subpage':
         return (
           <SecondaryListItem key={pageToRender.id}>
-            <ListItemValue>{pageToRender.name}</ListItemValue>
+            <PagesListItemValue onClick={() => navigate('/admin' + pageToRender.path)}>{pageToRender.name}</PagesListItemValue>
             <ListItemSecondaryValue>{pageToRender.path}</ListItemSecondaryValue>
             <ActionsWrapper>
               <ListItemAction onClick={() => handleOpenAddPageModal(pageToRender)}>
@@ -65,7 +67,7 @@ const PagesListItem: FC<IPagesListItemProps> = ({page, pageType, handleOpenAddPa
       case 'subsubpage':
         return (
           <TertiaryListItem key={pageToRender.id}>
-            <ListItemValue>{pageToRender.name}</ListItemValue>
+            <PagesListItemValue onClick={() => navigate('/admin' + pageToRender.path)}>{pageToRender.name}</PagesListItemValue>
             <ListItemSecondaryValue>{pageToRender.path}</ListItemSecondaryValue>
             <ActionsWrapper>
               <ListItemAction onClick={() => handleOpenDeletePageModal(pageToRender)}>

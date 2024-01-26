@@ -3,3 +3,4 @@ export {default as Component} from './Component';
 export {default as Link} from './Link';
 export {default as Gallery} from './Gallery';
 export {default as Page} from './Page';
+export {default as Dog} from './Dog';

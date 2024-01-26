@@ -5,12 +5,11 @@ export const FooterWrapper = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  bottom: 0;
   box-sizing: border-box;
   width: 100%;
   height: 100px;
   padding: 30px 0;
+  margin-top: auto;
 
   @media ${device.md} {
     padding: 10px 0;
