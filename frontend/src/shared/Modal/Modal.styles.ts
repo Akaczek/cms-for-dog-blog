@@ -10,6 +10,7 @@ export const AddingModalWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 9999;
 `;
 
 export const AddingModalContent = styled.div`

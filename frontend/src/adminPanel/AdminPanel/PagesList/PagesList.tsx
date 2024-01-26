@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 
 import { PagesContext } from '../../../lib/context/pagesContext';
 import { useModal } from '../../../lib/hooks';
@@ -14,15 +14,10 @@ import DeletePage from '../DeletePage';
 import PagesListItem from './PagesListItem';
 
 const PagesList: FC = () => {
-  const { pages, getPages } = useContext(PagesContext);
+  const { pages } = useContext(PagesContext);
   const [isAddModalOpen, toggleAddModal] = useModal();
   const [isDeleteModalOpen, toggleDeleteModal] = useModal();
   const [selectedPage, setSelectedPage] = useState<Page | null>(null);
-
-  useEffect(() => {
-    getPages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleOpenAddModal = (page: Page) => {
     setSelectedPage(page);
@@ -33,10 +28,6 @@ const PagesList: FC = () => {
     setSelectedPage(page);
     toggleDeleteModal();
   };
-
-  useEffect(() => {
-    console.log(pages);
-  }, [pages]);
 
   return (
     <ListWrapper>

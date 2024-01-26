@@ -1,5 +1,6 @@
 import Gallery from "./Gallery";
 import Link from "./Link";
+import Dog from "./Dog";
 
 export type ComponentType =
   | 'Header'
@@ -11,14 +12,23 @@ export type ComponentType =
   | 'Form'
   | 'Links';
 
+export const addableComponentsTypes = {
+  HeroBanner: 'HeroBanner',
+  TextWithImage: 'TextWithImage',
+  DogItem: 'DogItem',
+  Gallery: 'Gallery',
+  Form: 'Form',
+  Links: 'Links',
+};
+
 export interface Component {
   id: number;
-  title: string;
+  title?: string;
   imageUrl?: string;
   imagePosition?: string;
   content?: string;
   type: ComponentType;
-  dog?: number;
+  dog?: Dog;
   gallery?: Gallery;
   links?: Link[];
   pages?: number[];

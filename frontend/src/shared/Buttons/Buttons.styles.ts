@@ -17,3 +17,25 @@ export const ConfirmButton = styled.button`
     background-color: ${(props) => props.theme.colors.lightBrown};
   }
 `;
+
+export const AddComponentButton = styled.div`
+  margin: 20px auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: ${(props) => props.theme.colors.orange};
+  box-shadow: 0 0 30px 0 ${(props) => props.theme.colors.orange};
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.red};
+    box-shadow: 0 0 30px 0 ${(props) => props.theme.colors.red};
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+`;
