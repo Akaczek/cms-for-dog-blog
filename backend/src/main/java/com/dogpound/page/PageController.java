@@ -53,23 +53,7 @@ public class PageController {
         pageService.updatePage(id, form);
         return ResponseEntity.ok().build();
     }
-
-    @PostMapping("/{id}/{componentId}")
-    public ResponseEntity<Void> addComponent(@PathVariable Long id, @PathVariable Long componentId) {
-        logger.info("Add component id=" + id + " to page id=" + id);
-        authService.checkAuthority(Role.USER);
-        pageService.addComponent(id, componentId);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/{id}/{componentId}")
-    public ResponseEntity<Void> deleteComponent(@PathVariable Long id, @PathVariable Long componentId) {
-        logger.info("Delete component id=" + id + " from page id=" + id);
-        authService.checkAuthority(Role.USER);
-        pageService.deleteComponent(id, componentId);
-        return ResponseEntity.ok().build();
-    }
-
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePage(@PathVariable Long id) {
         logger.info("Delete page id=" + id);

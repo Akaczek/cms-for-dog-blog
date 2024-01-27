@@ -2,9 +2,6 @@ package com.dogpound.page;
 
 import com.dogpound.auth.AuthService;
 import com.dogpound.auth.exceptions.LoggedUserNotFound;
-import com.dogpound.component.Component;
-import com.dogpound.component.IComponentRepository;
-import com.dogpound.component.exceptions.ComponentNotFound;
 import com.dogpound.page.dto.PageDto;
 import com.dogpound.page.dto.PageDtoFormCreate;
 import com.dogpound.page.dto.PageDtoFormUpdate;
@@ -22,7 +19,6 @@ import java.util.stream.Collectors;
 public class PageService {
     private final AuthService authService;
     private final IPageRepository pageRepository;
-    private final IComponentRepository componentRepository;
     private final IUserRepository userRepository;
 
     public List<PageDto> getAllPages() {
@@ -53,29 +49,6 @@ public class PageService {
         Long loggedUserId = authService.getLoggedUser().getId();
         User user = userRepository.findById(loggedUserId).orElseThrow(LoggedUserNotFound::new);
         form.updatePage(page, user);
-
-        pageRepository.save(page);
-    }
-
-    public void addComponent(Long pageId, Long componentId) {
-        Page page = pageRepository.findById(pageId).orElseThrow(PageNotFound::new);
-        Component component = componentRepository.findById(componentId).orElseThrow(ComponentNotFound::new);
-
-        List<Component> components = page.getComponents();
-        components.add(component);
-        page.setComponents(components);
-
-        pageRepository.save(page);
-    }
-
-    public void deleteComponent(Long pageId, Long componentId) {
-        Page page = pageRepository.findById(pageId).orElseThrow(PageNotFound::new);
-        Component component = componentRepository.findById(componentId).orElseThrow(ComponentNotFound::new);
-
-
-        List<Component> components = page.getComponents();
-        components.remove(component);
-        page.setComponents(components);
 
         pageRepository.save(page);
     }
