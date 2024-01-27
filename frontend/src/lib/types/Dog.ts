@@ -2,7 +2,7 @@ export interface Dog {
   id: number;
   name: string;
   imageUrl: string;
-  breedNumber: string;
+  breedNumber?: string;
   averageLifeSpan?: string;
   temperament?: string;
   weight?: string;

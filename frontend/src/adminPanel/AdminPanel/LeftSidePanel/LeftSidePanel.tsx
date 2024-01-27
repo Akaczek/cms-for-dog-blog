@@ -11,6 +11,7 @@ import {
 import { AuthContext } from '../../../lib/context/authContext';
 import dogPaw from '../../../assets/paw.svg';
 import pages from '../../../assets/icons/pages.svg';
+import dog from '../../../assets/icons/dog.svg';
 
 const LeftSidePanel: FC = () => {
   const { logout } = useContext(AuthContext);
@@ -27,8 +28,11 @@ const LeftSidePanel: FC = () => {
         <LeftSidePanelLink to='/admin'>
           <LeftSidePanelLinkIcon src={dogPaw}/>
         </LeftSidePanelLink>
-        <LeftSidePanelLink to='/admin/pages'>
+        <LeftSidePanelLink to='/admin/pagesListAdmin'>
           <LeftSidePanelLinkIcon src={pages}/>
+        </LeftSidePanelLink>
+        <LeftSidePanelLink to='/admin/dogsListAdmin'>
+          <LeftSidePanelLinkIcon src={dog}/>
         </LeftSidePanelLink>
       </LeftSidePanelLinks>
       <LogOutButton onClick={handleLogout}>Log out</LogOutButton>
