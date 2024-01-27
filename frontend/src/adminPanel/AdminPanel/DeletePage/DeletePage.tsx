@@ -2,7 +2,7 @@ import { FC, useContext } from 'react';
 
 import { PagesContext } from '../../../lib/context/pagesContext';
 import { ConfirmButton } from '../../../shared/Buttons';
-import { ConfirmationMessage } from './DeletePage.styles';
+import { ConfirmationMessage } from '../../../shared/Form';
 import { IDeletePageProps } from './DeletePage.types';
 
 const DeletePage: FC<IDeletePageProps> = ({ page, onClose }) => {
