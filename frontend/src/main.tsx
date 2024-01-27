@@ -8,6 +8,7 @@ import { theme } from './assets/theme';
 import { AuthProvider } from './lib/context/authContext';
 import { PagesProvider } from './lib/context/pagesContext';
 import { DogsProvider } from './lib/context/dogsContext';
+import { UsersProvider } from './lib/context/usersContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <PagesProvider>
           <DogsProvider>
-            <App />
+            <UsersProvider>
+              <App />
+            </UsersProvider>
           </DogsProvider>
         </PagesProvider>
       </AuthProvider>

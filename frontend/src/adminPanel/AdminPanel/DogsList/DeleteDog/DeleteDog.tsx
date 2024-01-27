@@ -8,7 +8,7 @@ import { ConfirmationMessage } from "../../../../shared/Form";
 const DeleteDog: FC<IDeleteDogProps> = ({ dog, onClose }) => {
   const { deleteDog } = useContext(DogsContext);
 
-  const handleDeletePage = async () => {
+  const handleDeleteDog = async () => {
     await deleteDog(dog.id);
     onClose();
   };
@@ -18,7 +18,7 @@ const DeleteDog: FC<IDeleteDogProps> = ({ dog, onClose }) => {
       <ConfirmationMessage>
         Are you sure you want to delete this dog?
       </ConfirmationMessage>
-      <ConfirmButton onClick={handleDeletePage}>Delete</ConfirmButton>
+      <ConfirmButton onClick={handleDeleteDog}>Delete</ConfirmButton>
     </>
   );
 };
