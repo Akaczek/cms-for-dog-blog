@@ -5,6 +5,7 @@ import com.dogpound.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "pages")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Page {
 
     @Id
@@ -47,12 +49,7 @@ public class Page {
     @OneToMany(mappedBy="parentPage", cascade = CascadeType.ALL)
     private List<Page> subPages;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "addable_components_to_pages",
-            joinColumns = { @JoinColumn(name = "page_id") },
-            inverseJoinColumns = { @JoinColumn(name = "component_id") }
-    )
+    @OneToMany(mappedBy="page", cascade = CascadeType.ALL)
     private List<Component> components;
 
     @PrePersist

@@ -28,7 +28,8 @@ public class ComponentDto {
     private DogDto dog;
     private GalleryDto gallery;
     private List<LinkDto> links;
-    private List<Long> pages;
+    private Long pageId;
+    private Long order;
 
     public static ComponentDto of(Component component) {
         if (component == null) {
@@ -48,7 +49,9 @@ public class ComponentDto {
         dog = DogDto.of(component.getDog());
         gallery = GalleryDto.of(component.getGallery());
         links = getLinksDto(component.getLinks());
-        pages = getPagesIds(component.getPages());
+//        pageId = component.getPage().getId();
+        pageId = component.getPageId();
+        order = component.getOrder();
     }
 
     private List<LinkDto> getLinksDto(List<Link> links) {
@@ -57,12 +60,4 @@ public class ComponentDto {
         }
         return links.stream().map(LinkDto::of).collect(Collectors.toList());
     }
-
-    private List<Long> getPagesIds(List<Page> pages) {
-        if (pages == null) {
-            return Collections.emptyList();
-        }
-        return pages.stream().map(Page::getId).collect(Collectors.toList());
-    }
-
 }
