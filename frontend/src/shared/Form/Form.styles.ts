@@ -25,6 +25,12 @@ export const InputWrapper = styled.div`
   font-size: 24px;
 `;
 
+export const FixeWidthInputWrapper = styled(InputWrapper)`
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-gap: 20px;
+`;
+
 export const InputLabel = styled.label`
   font-size: 24px;
   font-weight: 600;
@@ -49,4 +55,12 @@ export const ConfirmationMessage = styled.p`
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 2rem;
+`;
+
+export const Select = styled.select`
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
 `;

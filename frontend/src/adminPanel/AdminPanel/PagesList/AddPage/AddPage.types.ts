@@ -1,4 +1,4 @@
-import { Page } from "../../../lib/types";
+import { Page } from "../../../../lib/types";
 
 export interface IAddPageProps {
   parentPage: Page | null;

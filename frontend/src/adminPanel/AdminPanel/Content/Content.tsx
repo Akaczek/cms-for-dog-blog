@@ -32,7 +32,9 @@ const Content: FC<IContentProps> = ({ page }) => {
           <AddComponentButton onClick={() => handleAddComponent(0)}>
             <img src={addIcon} alt='add' />
           </AddComponentButton>
-          {page.components.map((component, idx) => (
+          {page.components.sort(
+            (a, b) => a.order - b.order
+          ).map((component, idx) => (
             <>
               <AdminComponent key={component.id} component={component} />
               <AddComponentButton onClick={() => handleAddComponent(idx + 1)}>

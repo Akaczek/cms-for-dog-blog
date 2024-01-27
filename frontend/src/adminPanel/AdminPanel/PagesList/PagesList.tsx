@@ -9,8 +9,8 @@ import {
   ListWrapper,
 } from '../../../shared/List/List.styles';
 import Modal from '../../../shared/Modal';
-import AddPage from '../AddPage';
-import DeletePage from '../DeletePage';
+import AddPage from './AddPage';
+import DeletePage from './DeletePage';
 import PagesListItem from './PagesListItem';
 
 const PagesList: FC = () => {
