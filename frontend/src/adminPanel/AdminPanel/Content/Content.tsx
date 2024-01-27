@@ -7,12 +7,12 @@ import { AddComponentButton } from '../../../shared/Buttons';
 import addIcon from '../../../assets/icons/add_without_circle.svg';
 import Modal from '../../../shared/Modal';
 import { useModal } from '../../../lib/hooks';
-import { Component } from '../../../lib/types';
+// import { Component } from '../../../lib/types';
 
 const Content: FC<IContentProps> = ({ page }) => {
   const [isAddComponentModalOpen, toggleAddComponentModalOpen] = useModal();
   const [addPosition, setAddPosition] = useState<number>(0);
-  const [components, setComponents] = useState<Component[] | null>(page?.components);
+  // const [components, setComponents] = useState<Component[] | null>(page?.components);
 
   const handleAddComponent = (position: number) => {
     toggleAddComponentModalOpen();

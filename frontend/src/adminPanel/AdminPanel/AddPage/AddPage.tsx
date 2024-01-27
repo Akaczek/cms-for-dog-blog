@@ -5,12 +5,9 @@ import { ConfirmButton } from '../../../shared/Buttons';
 import {
   Checkbox,
   CheckboxWrapper,
-  Input,
-  InputLabel,
   InputPrefix,
-  InputWrapper,
-  WarningMessage,
 } from './AddPage.styles';
+import { WarningMessage, Input, InputLabel, InputWrapper } from '../../../shared/Form';
 import { IAddPageProps } from './AddPage.types';
 
 const AddPage: FC<IAddPageProps> = ({

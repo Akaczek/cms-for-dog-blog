@@ -3,16 +3,19 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../lib/context/authContext';
 import { PagesContext } from '../../lib/context/pagesContext';
+import { DogsContext } from '../../lib/context/dogsContext';
 import getLoggedUser from '../../lib/network/getLoggedUser';
 import { Page } from '../../lib/types';
 import { AdminPanelWrapper, MainViewWrapper } from './AdminPanel.styles';
 import LeftSidePanel from './LeftSidePanel';
 import PagesList from './PagesList';
 import Content from './Content';
+import DogsList from './DogsList';
 
 const AdminPanel: FC = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const { pages, getPages } = useContext(PagesContext);
+  const { getDogs } = useContext(DogsContext);
   const [selectedPage, setSelectedPage] = useState<Page | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,6 +26,7 @@ const AdminPanel: FC = () => {
       if (loggedUser) {
         setUser(loggedUser);
         getPages();
+        getDogs();
       } else {
         navigate('/login');
       }
@@ -49,7 +53,8 @@ const AdminPanel: FC = () => {
       <LeftSidePanel />
       <MainViewWrapper>
         <Routes>
-          <Route path='pages' element={<PagesList />} />
+          <Route path='dogsListAdmin' element={<DogsList />} />
+          <Route path='pagesListAdmin' element={<PagesList />} />
           <Route path='*' element={<Content page={selectedPage}/>} />
         </Routes>
       </MainViewWrapper>
