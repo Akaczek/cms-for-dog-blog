@@ -48,7 +48,7 @@ public class DogService {
 
     public void updateDog(Long id, DogDtoFormUpdate form) {
         Dog dog = repository.findById(id).orElseThrow(DogNotFound::new);
-        validateName(form.getName());
+//        validateName(form.getName());
         form.updateDog(dog);
 
         repository.save(dog);
