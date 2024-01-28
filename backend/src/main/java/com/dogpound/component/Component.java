@@ -35,6 +35,9 @@ public class Component {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "buttonContent")
+    private String buttonContent;
+
     @Column(name = "path")
     private String path;
 
