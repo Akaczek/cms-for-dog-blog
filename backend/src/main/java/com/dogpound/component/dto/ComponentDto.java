@@ -23,6 +23,7 @@ public class ComponentDto {
     private String imageUrl;
     private String imagePosition;
     private String content;
+    private String buttonContent;
     private String path;
     private String type;
     private DogDto dog;
@@ -43,6 +44,7 @@ public class ComponentDto {
         imageUrl = component.getImageUrl();
         imagePosition = component.getImagePosition();
         content = component.getContent();
+        buttonContent = component.getButtonContent();
         path = component.getPath();
         type = component.getType().toString();
         dog = DogDto.of(component.getDog());

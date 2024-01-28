@@ -13,6 +13,7 @@ public class ComponentDtoFormCreate {
     private String title;
     private String imagePosition;
     private String content;
+    private String buttonContent;
     private String path;
     private Long dogId;
     private Long galleryId;
@@ -27,6 +28,7 @@ public class ComponentDtoFormCreate {
         component.setTitle(title);
         component.setImagePosition(imagePosition);
         component.setContent(content);
+        component.setButtonContent(buttonContent);
         component.setPath(path);
         component.setTypeFromString(type);
 
