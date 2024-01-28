@@ -8,7 +8,10 @@ export const theme = {
     darkGrey: '#333333',
     lightBeige: '#f7f7f4',
     red: '#ff0000',
+    darkerRed: '#e60000',
     orange: '#fe9315',
+    darkerOrange: '#e67e00',
+    blue: '#4f7df5',
     transparentBlack: 'rgba(0, 0, 0, 0.5)',
   },
 };

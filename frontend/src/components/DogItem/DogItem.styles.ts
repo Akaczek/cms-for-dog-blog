@@ -5,7 +5,6 @@ export const DogItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 30px;
   padding: 20px;
   background-color: ${(props) => props.theme.colors.lightBeige};
 `;

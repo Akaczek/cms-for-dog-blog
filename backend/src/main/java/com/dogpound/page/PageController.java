@@ -27,14 +27,14 @@ public class PageController {
     @GetMapping
     public List<PageDto> getAllPages() {
         logger.info("Get all pages");
-        authService.checkAuthority(Role.USER);
+//        authService.checkAuthority(Role.USER);
         return pageService.getAllPages();
     }
 
     @GetMapping("/{id}")
     public PageDto getPageById(@PathVariable Long id) {
         logger.info("Get page by id=" + id);
-        authService.checkAuthority(Role.USER);
+//        authService.checkAuthority(Role.USER);
         return pageService.getPageById(id);
     }
 
