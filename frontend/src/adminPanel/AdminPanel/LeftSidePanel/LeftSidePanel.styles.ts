@@ -38,6 +38,11 @@ export const LeftSidePanelLinkIcon = styled.img`
   height: 70px;
 `;
 
+export const LeftSidePanelLinkLogo = styled.img`
+  width: 70px;
+  height: auto;
+`;
+
 export const LogOutButton = styled.button`
   margin: 0.5rem auto 0.5rem auto;
   padding: 10px 10px;

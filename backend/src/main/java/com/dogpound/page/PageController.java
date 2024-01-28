@@ -27,14 +27,14 @@ public class PageController {
     @GetMapping
     public List<PageDto> getAllPages() {
         logger.info("Get all pages");
-        authService.checkAuthority(Role.USER);
+//        authService.checkAuthority(Role.USER);
         return pageService.getAllPages();
     }
 
     @GetMapping("/{id}")
     public PageDto getPageById(@PathVariable Long id) {
         logger.info("Get page by id=" + id);
-        authService.checkAuthority(Role.USER);
+//        authService.checkAuthority(Role.USER);
         return pageService.getPageById(id);
     }
 
@@ -53,23 +53,7 @@ public class PageController {
         pageService.updatePage(id, form);
         return ResponseEntity.ok().build();
     }
-
-    @PostMapping("/{id}/{componentId}")
-    public ResponseEntity<Void> addComponent(@PathVariable Long id, @PathVariable Long componentId) {
-        logger.info("Add component id=" + id + " to page id=" + id);
-        authService.checkAuthority(Role.USER);
-        pageService.addComponent(id, componentId);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/{id}/{componentId}")
-    public ResponseEntity<Void> deleteComponent(@PathVariable Long id, @PathVariable Long componentId) {
-        logger.info("Delete component id=" + id + " from page id=" + id);
-        authService.checkAuthority(Role.USER);
-        pageService.deleteComponent(id, componentId);
-        return ResponseEntity.ok().build();
-    }
-
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePage(@PathVariable Long id) {
         logger.info("Delete page id=" + id);

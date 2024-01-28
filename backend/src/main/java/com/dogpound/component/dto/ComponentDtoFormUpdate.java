@@ -12,6 +12,7 @@ public class ComponentDtoFormUpdate {
     private String path;
     private Long dogId;
     private Long galleryId;
+    private Long order;
 
     public void updateComponent(Component component) {
         if (title != null) component.setTitle(title);

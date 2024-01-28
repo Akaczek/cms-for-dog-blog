@@ -31,7 +31,8 @@ export interface Component {
   dog?: Dog;
   gallery?: Gallery;
   links?: Link[];
-  pages?: number[];
+  pageId?: number;
+  order?: number;
 }
 
 export default Component;

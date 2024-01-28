@@ -3,7 +3,6 @@ import { device } from '../../assets/theme';
 
 export const HeroBannerWrapper = styled.div`
   display: flex;
-  margin-bottom: 30px;
   
   @media ${device.lg} {
     flex-direction: column;

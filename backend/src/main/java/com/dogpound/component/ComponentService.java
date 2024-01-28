@@ -19,18 +19,25 @@ import com.dogpound.dog.Dog;
 import com.dogpound.dog.DogService;
 import com.dogpound.dog.dto.DogDto;
 import com.dogpound.image.ImageService;
+import com.dogpound.page.IPageRepository;
+import com.dogpound.page.Page;
+import com.dogpound.page.PageService;
+import com.dogpound.page.dto.PageDto;
+import com.dogpound.page.exceptions.PageNotFound;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ComponentService {
     private final IComponentRepository repository;
+    private final IPageRepository pageRepository;
     private final LinkService linkService;
     private final GalleryService galleryService;
     private final DogService dogService;
@@ -50,7 +57,11 @@ public class ComponentService {
 
     public ComponentDto createComponent(ComponentDtoFormCreate form) {
         Component component = form.toComponent();
+        validateComponent(form);
 
+//        Page page = pageRepository.findById(form.getPageId()).orElseThrow(PageNotFound::new);
+//        component.setPage(page);
+        handleComponentOrder(component, form.getOrder(), OrderAction.ADD);
         handleComponentImage(component, form.getImageUrl(), form.getImageFile());
         return ComponentDto.of(repository.save(component));
     }
@@ -59,6 +70,10 @@ public class ComponentService {
         Component component = repository.findById(id).orElseThrow(ComponentNotFound::new);
         ComponentType type = component.getType();
         form.updateComponent(component);
+
+        if (form.getOrder() != null) {
+            handleComponentOrder(component, form.getOrder(), OrderAction.UPDATE);
+        }
 
         if (isTypeExpected(type, ComponentType.DOG_ITEM)) {
             Long dogId = form.getDogId();
@@ -109,6 +124,7 @@ public class ComponentService {
     public void deleteComponent(Long id) {
         Component component = repository.findById(id).orElseThrow(ComponentNotFound::new);
         String imageUrl = component.getImageUrl();
+        handleComponentOrder(component, component.getOrder(), OrderAction.DELETE);
         repository.delete(component);
         imageService.deleteImage(imageUrl);
     }
@@ -117,27 +133,71 @@ public class ComponentService {
         return expected.equals(actual);
     }
 
-    private void validateComponentType(ComponentType type, ComponentDtoFormCreate form) {
-        if (type == null) {
+    private void validateComponent(ComponentDtoFormCreate form) {
+        if (form.getType() == null) {
             throw new ComponentException(ComponentExceptionType.INVALID_TYPE);
         }
-//        switch (type) {
-//            case DOG_ITEM -> {
-//                if (form.getDogId() == null) {
-//                    throw new ComponentException(ComponentExceptionType.DOG_ID_IS_NULL);
-//                }
-//            }
-//            case LINKS -> {
-//                if (form.getLinks() == null) {
-//                    throw new ComponentException(ComponentExceptionType.LINKS_IS_NULL);
-//                }
-//            }
-//            case GALLERY -> {
-//                if (form.getGalleryId() == null) {
-//                    throw new ComponentException(ComponentExceptionType.GALLERY_IS_NULL);
-//                }
-//            }
-//        }
+        if (form.getPageId() == null) {
+            throw new ComponentException(ComponentExceptionType.PAGE_ID_IS_NULL);
+        }
+        if (form.getOrder() == null) {
+            throw new ComponentException(ComponentExceptionType.ORDER_IS_NULL);
+        }
+    }
+
+    private void handleComponentOrder(Component component, Long order, OrderAction action) {
+        Long pageId = component.getPageId();
+        List<Component> pageComponents = repository.findAllByPageId(pageId);
+        switch (action) {
+            case ADD -> {
+                component.setOrder(order);
+                pageComponents.forEach(c -> handleAddComponentOrder(c, order));
+            }
+            case UPDATE -> {
+                Long prevOrder = component.getOrder();
+                pageComponents.forEach(c -> {
+                    if (!Objects.equals(c.getId(), component.getId())) {
+                        handleUpdateComponentOrder(c, order, prevOrder);
+                    }
+                });
+                component.setOrder(order);
+            }
+            case DELETE -> {
+                pageComponents.forEach(c -> {
+                    if (!Objects.equals(c.getId(), component.getId())) {
+                        handleDeleteComponentOrder(c, order);
+                    }
+                });
+            }
+        }
+        repository.saveAll(pageComponents);
+    }
+
+    private void handleAddComponentOrder(Component component, Long order) {
+        Long currentOrder = component.getOrder();
+        if (currentOrder >= order) {
+           component.setOrder(currentOrder + 1);
+        }
+    }
+
+    private void handleUpdateComponentOrder(Component component, Long newOrder, Long prevOrder) {
+        Long currentOrder = component.getOrder();
+        if (newOrder > prevOrder) {
+            if (currentOrder > prevOrder && currentOrder <= newOrder) {
+                component.setOrder(currentOrder - 1);
+            }
+        } else if (newOrder < prevOrder) {
+            if (currentOrder >= newOrder && currentOrder < prevOrder) {
+                component.setOrder(currentOrder + 1);
+            }
+        }
+    }
+
+    private void handleDeleteComponentOrder(Component component, Long order) {
+        Long currentOrder = component.getOrder();
+        if (currentOrder > order) {
+            component.setOrder(currentOrder - 1);
+        }
     }
 
     private void handleComponentImage(Component component, String imageUrl, MultipartFile imageFile) {

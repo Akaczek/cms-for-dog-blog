@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ConfirmButton = styled.button`
   margin-top: 20px;
@@ -30,12 +30,40 @@ export const AddComponentButton = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.red};
-    box-shadow: 0 0 30px 0 ${(props) => props.theme.colors.red};
+    background-color: ${(props) => props.theme.colors.darkerOrange};
+    box-shadow: 0 0 30px 0 ${(props) => props.theme.colors.darkerOrange};
   }
 
   img {
     width: 40px;
     height: 40px;
+  }
+`;
+
+export const DeleteComponentButton = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: ${(props) => props.theme.colors.red};
+  box-shadow: 0 0 30px 0 ${(props) => props.theme.colors.red};
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.darkerRed};
+    box-shadow: 0 0 30px 0 ${(props) => props.theme.colors.darkerRed};
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
   }
 `;

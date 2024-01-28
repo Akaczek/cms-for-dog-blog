@@ -6,15 +6,18 @@ import {
   LogOutButton,
   LeftSidePanelLinks,
   LeftSidePanelLinkIcon,
-  LeftSidePanelLink
+  LeftSidePanelLink,
+  LeftSidePanelLinkLogo,
 } from './LeftSidePanel.styles';
 import { AuthContext } from '../../../lib/context/authContext';
 import dogPaw from '../../../assets/paw.svg';
 import pages from '../../../assets/icons/pages.svg';
 import dog from '../../../assets/icons/dog.svg';
+import users from '../../../assets/icons/users.svg';
+import logo from '../../../assets/logo.png';
 
 const LeftSidePanel: FC = () => {
-  const { logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -28,12 +31,20 @@ const LeftSidePanel: FC = () => {
         <LeftSidePanelLink to='/admin'>
           <LeftSidePanelLinkIcon src={dogPaw}/>
         </LeftSidePanelLink>
+        <LeftSidePanelLink to='/'>
+          <LeftSidePanelLinkLogo src={logo}/>
+        </LeftSidePanelLink>
         <LeftSidePanelLink to='/admin/pagesListAdmin'>
           <LeftSidePanelLinkIcon src={pages}/>
         </LeftSidePanelLink>
         <LeftSidePanelLink to='/admin/dogsListAdmin'>
           <LeftSidePanelLinkIcon src={dog}/>
         </LeftSidePanelLink>
+        {(user?.role === 'admin' || user?.role === 'superadmin') && (
+          <LeftSidePanelLink to='/admin/usersListAdmin'>
+            <LeftSidePanelLinkIcon src={users}/>
+          </LeftSidePanelLink>
+        )}
       </LeftSidePanelLinks>
       <LogOutButton onClick={handleLogout}>Log out</LogOutButton>
     </LeftSidePanelWrapper>

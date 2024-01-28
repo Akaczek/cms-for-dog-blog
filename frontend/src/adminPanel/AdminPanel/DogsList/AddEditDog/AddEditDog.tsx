@@ -155,7 +155,7 @@ const AddEditDog: FC<IAddEditDogProps> = ({ dog, onClose }) => {
           />
         </AddDogInputWrapper>
         {warningMessage && <WarningMessage>{warningMessage}</WarningMessage>}
-        <ConfirmButton type="submit">Add</ConfirmButton>
+        <ConfirmButton type="submit">{dog ? 'Edit' : 'Add'}</ConfirmButton>
       </Form>
     </FormWrapper>
   );

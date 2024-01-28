@@ -5,7 +5,6 @@ import { TextWrapperProps, ImagePosition } from "./Text.types";
 
 export const TextWrapper = styled.div<TextWrapperProps>`
   display: flex;
-  margin-bottom: 30px;
   justify-content: center;
   align-items: center;
 
