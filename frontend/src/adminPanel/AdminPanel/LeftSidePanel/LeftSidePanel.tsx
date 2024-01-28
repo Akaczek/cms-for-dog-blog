@@ -6,13 +6,15 @@ import {
   LogOutButton,
   LeftSidePanelLinks,
   LeftSidePanelLinkIcon,
-  LeftSidePanelLink
+  LeftSidePanelLink,
+  LeftSidePanelLinkLogo,
 } from './LeftSidePanel.styles';
 import { AuthContext } from '../../../lib/context/authContext';
 import dogPaw from '../../../assets/paw.svg';
 import pages from '../../../assets/icons/pages.svg';
 import dog from '../../../assets/icons/dog.svg';
 import users from '../../../assets/icons/users.svg';
+import logo from '../../../assets/logo.png';
 
 const LeftSidePanel: FC = () => {
   const { user, logout } = useContext(AuthContext);
@@ -28,6 +30,9 @@ const LeftSidePanel: FC = () => {
       <LeftSidePanelLinks>
         <LeftSidePanelLink to='/admin'>
           <LeftSidePanelLinkIcon src={dogPaw}/>
+        </LeftSidePanelLink>
+        <LeftSidePanelLink to='/'>
+          <LeftSidePanelLinkLogo src={logo}/>
         </LeftSidePanelLink>
         <LeftSidePanelLink to='/admin/pagesListAdmin'>
           <LeftSidePanelLinkIcon src={pages}/>

@@ -7,7 +7,6 @@ export const GalleryWrapper = styled.div`
   justify-content: center;
   gap: 20px;
   padding: 20px;
-  margin-bottom: 30px;
   background-color: ${(props) => props.theme.colors.white};
 
   @media ${device.md} {

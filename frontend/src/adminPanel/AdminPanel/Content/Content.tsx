@@ -1,43 +1,63 @@
 import { FC, useState } from 'react';
 
-import { Header, Footer } from '../../../components';
-import { IContentProps } from './Content.types';
-import AdminComponent from './AdminComponent';
-import { AddComponentButton } from '../../../shared/Buttons';
 import addIcon from '../../../assets/icons/add_without_circle.svg';
-import Modal from '../../../shared/Modal';
+import { Footer, Header } from '../../../components';
 import { useModal } from '../../../lib/hooks';
-// import { Component } from '../../../lib/types';
+import { Component } from '../../../lib/types';
+import { AddComponentButton } from '../../../shared/Buttons';
+import Modal from '../../../shared/Modal';
+import AddComponent from './AddComponent';
+import AdminComponent from './AdminComponent';
+import { IContentProps } from './Content.types';
+import DeleteComponent from './DeleteComponent';
 
 const Content: FC<IContentProps> = ({ page }) => {
   const [isAddComponentModalOpen, toggleAddComponentModalOpen] = useModal();
+  const [isDeleteComponentModalOpen, toggleDeleteComponentModalOpen] = useModal();
   const [addPosition, setAddPosition] = useState<number>(0);
-  // const [components, setComponents] = useState<Component[] | null>(page?.components);
+  const [selectedComponent, setSelectedComponent] = useState<Component | null>(null);
 
   const handleAddComponent = (position: number) => {
     toggleAddComponentModalOpen();
     setAddPosition(position);
   };
 
+  const handleDeleteComponent = (component: Component) => {
+    setSelectedComponent(component);
+    toggleDeleteComponentModalOpen();
+  };
+
   return (
     <>
       {isAddComponentModalOpen && (
         <Modal title='Add component' toggle={toggleAddComponentModalOpen}>
-          <h3>{addPosition}</h3>
+          <AddComponent
+            pageId={page.id}
+            order={addPosition}
+            toggle={toggleAddComponentModalOpen}
+          />
+        </Modal>
+      )}
+      {isDeleteComponentModalOpen && (
+        <Modal title='Delete component' toggle={toggleDeleteComponentModalOpen}>
+          <DeleteComponent
+            component={selectedComponent}
+            onClose={toggleDeleteComponentModalOpen}
+          />
         </Modal>
       )}
       <Header />
       {page && (
         <>
-          <AddComponentButton onClick={() => handleAddComponent(0)}>
+          <AddComponentButton onClick={() => handleAddComponent(1)}>
             <img src={addIcon} alt='add' />
           </AddComponentButton>
           {page.components.sort(
             (a, b) => a.order - b.order
           ).map((component, idx) => (
             <>
-              <AdminComponent key={component.id} component={component} />
-              <AddComponentButton onClick={() => handleAddComponent(idx + 1)}>
+              <AdminComponent key={component.id} component={component} onDelete={handleDeleteComponent}/>
+              <AddComponentButton onClick={() => handleAddComponent(idx + 2)}>
                 <img src={addIcon} alt='add' />
               </AddComponentButton>
             </>
