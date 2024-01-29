@@ -12,21 +12,14 @@ export type ComponentType =
   | 'Form'
   | 'Links';
 
-export const addableComponentsTypes = {
-  HeroBanner: 'HeroBanner',
-  TextWithImage: 'TextWithImage',
-  DogItem: 'DogItem',
-  Gallery: 'Gallery',
-  Form: 'Form',
-  Links: 'Links',
-};
-
 export interface Component {
   id: number;
   title?: string;
   imageUrl?: string;
   imagePosition?: string;
   content?: string;
+  buttonContent?: string;
+  path?: string;
   type: ComponentType;
   dog?: Dog;
   gallery?: Gallery;

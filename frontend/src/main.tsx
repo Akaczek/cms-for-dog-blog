@@ -9,6 +9,8 @@ import { AuthProvider } from './lib/context/authContext';
 import { PagesProvider } from './lib/context/pagesContext';
 import { DogsProvider } from './lib/context/dogsContext';
 import { UsersProvider } from './lib/context/usersContext';
+import { EditComponentProvider } from './lib/context/editComponentContext';
+import { GalleriesProvider } from './lib/context/galleriesContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,7 +19,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <PagesProvider>
           <DogsProvider>
             <UsersProvider>
-              <App />
+              <EditComponentProvider>
+                <GalleriesProvider>
+                  <App />
+                </GalleriesProvider>
+              </EditComponentProvider>
             </UsersProvider>
           </DogsProvider>
         </PagesProvider>

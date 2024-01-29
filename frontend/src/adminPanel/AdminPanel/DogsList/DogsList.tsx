@@ -15,6 +15,7 @@ import { Dog } from '../../../lib/types';
 import AddEditDog from './AddEditDog';
 import add from '../../../assets/icons/add.svg';
 import DeleteDog from './DeleteDog';
+import { MainViewWrapper } from '../AdminPanel.styles';
 
 const DogsList: FC = () => {
   const { dogs } = useContext(DogsContext);
@@ -38,40 +39,42 @@ const DogsList: FC = () => {
   };
 
   return (
-    <ListWrapper>
-      {isAddModalOpen && (
-        <Modal title={'Add dog'} toggle={toggleAddModal}>
-          <AddEditDog onClose={toggleAddModal} />
-        </Modal>
-      )}
-      {isDeleteModalOpen && (
-        <Modal title={'Delete dog'} toggle={toggleDeleteModal}>
-          <DeleteDog dog={selectedDog} onClose={toggleDeleteModal} />
-        </Modal>
-      )}
-      {isEditModalOpen && (
-        <Modal title={'Edit dog'} toggle={toggleEditModal}>
-          <AddEditDog dog={selectedDog} onClose={toggleEditModal} />
-        </Modal>
-      )}
-      <ListHeader>Dogs</ListHeader>
-      <ListItemAction onClick={() => handleOpenAddModal()}>
-        <ListItemActionIcon src={add} />
-      </ListItemAction>
-      <List>
-        {dogs &&
-          dogs
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((dog) => (
-              <DogsListItem
-                key={dog.id}
-                dog={dog}
-                onDogDelete={handleOpenDeleteModal}
-                onDogEdit={handleOpenEditModal}
-              />
-            ))}
-      </List>
-    </ListWrapper>
+    <MainViewWrapper>
+      <ListWrapper>
+        {isAddModalOpen && (
+          <Modal title={'Add dog'} toggle={toggleAddModal}>
+            <AddEditDog onClose={toggleAddModal} />
+          </Modal>
+        )}
+        {isDeleteModalOpen && (
+          <Modal title={'Delete dog'} toggle={toggleDeleteModal}>
+            <DeleteDog dog={selectedDog} onClose={toggleDeleteModal} />
+          </Modal>
+        )}
+        {isEditModalOpen && (
+          <Modal title={'Edit dog'} toggle={toggleEditModal}>
+            <AddEditDog dog={selectedDog} onClose={toggleEditModal} />
+          </Modal>
+        )}
+        <ListHeader>Dogs</ListHeader>
+        <ListItemAction onClick={() => handleOpenAddModal()}>
+          <ListItemActionIcon src={add} />
+        </ListItemAction>
+        <List>
+          {dogs &&
+            dogs
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((dog) => (
+                <DogsListItem
+                  key={dog.id}
+                  dog={dog}
+                  onDogDelete={handleOpenDeleteModal}
+                  onDogEdit={handleOpenEditModal}
+                />
+              ))}
+        </List>
+      </ListWrapper>
+    </MainViewWrapper>
   );
 };
 

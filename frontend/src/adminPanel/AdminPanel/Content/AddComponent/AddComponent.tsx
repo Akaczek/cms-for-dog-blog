@@ -12,7 +12,7 @@ import { ConfirmButton } from '../../../../shared/Buttons';
 import { PagesContext } from '../../../../lib/context/pagesContext';
 import { IAddComponentProps } from './AddComponent.types';
 import { ComponentType } from '../../../../lib/types/Component';
-import { addableComponentsTypes } from '../../../../lib/types/Component';
+import { addableComponentsTypes } from '../../../../lib/constants';
 
 export const AddComponent: FC<IAddComponentProps> = ({pageId, order, toggle}) => {
   const [componentType, setComponentType] = useState('');
