@@ -7,7 +7,8 @@ export const EditPanelWrapper = styled.div`
   height: 100vh;
   padding: 15px;
   box-sizing: border-box;
-  border-right: 1px solid ${(props) => props.theme.colors.lightGrey};
+  border-left: 1px solid ${(props) => props.theme.colors.lightGrey};
+  overflow-y: scroll;
 `;
 
 export const EditPanelHeader = styled.div`
@@ -30,4 +31,17 @@ export const EditPanelSubheader = styled.p`
   padding: 0;
   font-size: 20px;
   font-weight: 500;
+`;
+
+export const AddLinkButton = styled.button`
+  margin: 10px 0 0 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: ${(props) => props.theme.colors.lightGrey};
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    background-color: ${(props) => props.theme.colors.grey};
+  }
 `;

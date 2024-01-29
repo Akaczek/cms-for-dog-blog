@@ -56,7 +56,6 @@ const EditComponent: FC<IEditComponentProps> = ({ component }) => {
 
   return (
     <>
-      {' '}
       {whatCanBeEdited[component.type].map((property) => {
         switch (property) {
           case 'title':
