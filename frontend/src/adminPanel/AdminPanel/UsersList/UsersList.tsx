@@ -16,6 +16,7 @@ import UsersListItem from './UsersListItem';
 import DeleteUser from './DeleteUser';
 import AddUser from './AddUser';
 import EditUserRole from './EditUserRole/EditUserRole';
+import { MainViewWrapper } from '../AdminPanel.styles';
 
 const UsersList: FC = () => {
   const { users } = useContext(UsersContext);
@@ -39,35 +40,44 @@ const UsersList: FC = () => {
   };
 
   return (
-    <ListWrapper>
-      {isAddModalOpen && (
-        <Modal title={'Add user'} toggle={toggleAddModal}>
-          <AddUser onClose={toggleAddModal} />
-        </Modal>
-      )}
-      {isDeleteModalOpen && (
-        <Modal title={'Delete user'} toggle={toggleDeleteModal}>
-          <DeleteUser user={selectedUser} onClose={toggleDeleteModal} />
-        </Modal>
-      )}
-      {isEditModalOpen && (
-        <Modal title={'Edit user'} toggle={toggleEditModal}>
-          <EditUserRole user={selectedUser} onClose={toggleEditModal} />
-        </Modal>
-      )}
-      <ListHeader>Users</ListHeader>
-      <ListItemAction onClick={handleOpenAddModal}>
-        <ListItemActionIcon src={add} />
-      </ListItemAction>
-      <List>
-        {users &&
-          users.filter(
-            (user) => user.role !== 'superadmin'
-          ) .map((user) => {
-            return <UsersListItem key={user.id} user={user} onUserDelete={handleOpenDeleteModal} onUserEdit={handleOpenEditModal}/>;
-          })}
-      </List>
-    </ListWrapper>
+    <MainViewWrapper>
+      <ListWrapper>
+        {isAddModalOpen && (
+          <Modal title={'Add user'} toggle={toggleAddModal}>
+            <AddUser onClose={toggleAddModal} />
+          </Modal>
+        )}
+        {isDeleteModalOpen && (
+          <Modal title={'Delete user'} toggle={toggleDeleteModal}>
+            <DeleteUser user={selectedUser} onClose={toggleDeleteModal} />
+          </Modal>
+        )}
+        {isEditModalOpen && (
+          <Modal title={'Edit user'} toggle={toggleEditModal}>
+            <EditUserRole user={selectedUser} onClose={toggleEditModal} />
+          </Modal>
+        )}
+        <ListHeader>Users</ListHeader>
+        <ListItemAction onClick={handleOpenAddModal}>
+          <ListItemActionIcon src={add} />
+        </ListItemAction>
+        <List>
+          {users &&
+            users
+              .filter((user) => user.role !== 'superadmin')
+              .map((user) => {
+                return (
+                  <UsersListItem
+                    key={user.id}
+                    user={user}
+                    onUserDelete={handleOpenDeleteModal}
+                    onUserEdit={handleOpenEditModal}
+                  />
+                );
+              })}
+        </List>
+      </ListWrapper>
+    </MainViewWrapper>
   );
 };
 

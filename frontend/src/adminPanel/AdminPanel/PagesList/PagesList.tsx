@@ -12,6 +12,7 @@ import Modal from '../../../shared/Modal';
 import AddPage from './AddPage';
 import DeletePage from './DeletePage';
 import PagesListItem from './PagesListItem';
+import { MainViewWrapper } from '../AdminPanel.styles';
 
 const PagesList: FC = () => {
   const { pages } = useContext(PagesContext);
@@ -30,64 +31,66 @@ const PagesList: FC = () => {
   };
 
   return (
-    <ListWrapper>
-      {isAddModalOpen && (
-        <Modal title={'Add page'} toggle={toggleAddModal}>
-          <AddPage
-            parentPage={selectedPage}
-            onClose={toggleAddModal}
-            isAddingToMainPage={selectedPage.path === '/'}
-          />
-        </Modal>
-      )}
-      {isDeleteModalOpen && (
-        <Modal title={'Delete page'} toggle={toggleDeleteModal}>
-          <DeletePage page={selectedPage} onClose={toggleDeleteModal} />
-        </Modal>
-      )}
-      <ListHeader>Pages</ListHeader>
-      <List>
-        {pages.map((page) => {
-          if (page.parentPageId === null) {
-            return (
-              <>
-                <PagesListItem
-                  key={page.id}
-                  page={page}
-                  pageType={'page'}
-                  handleOpenAddPageModal={handleOpenAddModal}
-                  handleOpenDeletePageModal={handleOpenDeleteModal}
-                />
-                {page.subpages.map((subpage) => {
-                  return (
-                    <>
-                      <PagesListItem
-                        key={subpage.id}
-                        page={subpage}
-                        pageType={'subpage'}
-                        handleOpenAddPageModal={handleOpenAddModal}
-                        handleOpenDeletePageModal={handleOpenDeleteModal}
-                      />
-                      {subpage.subpages.map((subsubpage) => {
-                        return (
-                          <PagesListItem
-                            key={subsubpage.id}
-                            page={subsubpage}
-                            pageType={'subsubpage'}
-                            handleOpenAddPageModal={handleOpenAddModal}
-                            handleOpenDeletePageModal={handleOpenDeleteModal}
-                          />
-                        );
-                      })}
-                    </>
-                  );
-                })}
-              </>
-            );
-          }
-        })}
-      </List>
-    </ListWrapper>
+    <MainViewWrapper>
+      <ListWrapper>
+        {isAddModalOpen && (
+          <Modal title={'Add page'} toggle={toggleAddModal}>
+            <AddPage
+              parentPage={selectedPage}
+              onClose={toggleAddModal}
+              isAddingToMainPage={selectedPage.path === '/'}
+            />
+          </Modal>
+        )}
+        {isDeleteModalOpen && (
+          <Modal title={'Delete page'} toggle={toggleDeleteModal}>
+            <DeletePage page={selectedPage} onClose={toggleDeleteModal} />
+          </Modal>
+        )}
+        <ListHeader>Pages</ListHeader>
+        <List>
+          {pages.map((page) => {
+            if (page.parentPageId === null) {
+              return (
+                <>
+                  <PagesListItem
+                    key={page.id}
+                    page={page}
+                    pageType={'page'}
+                    handleOpenAddPageModal={handleOpenAddModal}
+                    handleOpenDeletePageModal={handleOpenDeleteModal}
+                  />
+                  {page.subpages.map((subpage) => {
+                    return (
+                      <>
+                        <PagesListItem
+                          key={subpage.id}
+                          page={subpage}
+                          pageType={'subpage'}
+                          handleOpenAddPageModal={handleOpenAddModal}
+                          handleOpenDeletePageModal={handleOpenDeleteModal}
+                        />
+                        {subpage.subpages.map((subsubpage) => {
+                          return (
+                            <PagesListItem
+                              key={subsubpage.id}
+                              page={subsubpage}
+                              pageType={'subsubpage'}
+                              handleOpenAddPageModal={handleOpenAddModal}
+                              handleOpenDeletePageModal={handleOpenDeleteModal}
+                            />
+                          );
+                        })}
+                      </>
+                    );
+                  })}
+                </>
+              );
+            }
+          })}
+        </List>
+      </ListWrapper>
+    </MainViewWrapper>
   );
 };
 

@@ -5,20 +5,25 @@ import { AuthContext } from '../../lib/context/authContext';
 import { DogsContext } from '../../lib/context/dogsContext';
 import { PagesContext } from '../../lib/context/pagesContext';
 import { UsersContext } from '../../lib/context/usersContext';
+import { GalleriesContext } from '../../lib/context/galleriesContext';
+import { EditComponentContext } from '../../lib/context/editComponentContext';
 import getLoggedUser from '../../lib/network/getLoggedUser';
 import { Page } from '../../lib/types';
-import { AdminPanelWrapper, MainViewWrapper } from './AdminPanel.styles';
+import { AdminPanelWrapper } from './AdminPanel.styles';
 import Content from './Content';
 import DogsList from './DogsList';
 import LeftSidePanel from './LeftSidePanel';
 import PagesList from './PagesList';
 import UsersList from './UsersList';
+import EditPanel from './Content/EditPanel';
 
 const AdminPanel: FC = () => {
   const { setUser } = useContext(AuthContext);
   const { pages, getPages } = useContext(PagesContext);
   const { getDogs } = useContext(DogsContext);
   const { getUsers } = useContext(UsersContext);
+  const { getGalleries } = useContext(GalleriesContext);
+  const { setComponent } = useContext(EditComponentContext);
   const [selectedPage, setSelectedPage] = useState<Page | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,8 +35,8 @@ const AdminPanel: FC = () => {
         setUser(loggedUser);
         getPages();
         getDogs();
-        if (loggedUser.role !== 'user')
-        {
+        getGalleries();
+        if (loggedUser.role !== 'user') {
           getUsers();
         }
       } else {
@@ -47,21 +52,33 @@ const AdminPanel: FC = () => {
     if (path === '') {
       setSelectedPage(pages.find((page) => page.path === '/'));
     } else {
-      setSelectedPage(pages.find((page) => page.path === location.pathname.replace('/admin', '')));
+      setSelectedPage(
+        pages.find(
+          (page) => page.path === location.pathname.replace('/admin', '')
+        )
+      );
     }
+    setComponent(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pages, location]);
 
   return (
     <AdminPanelWrapper>
       <LeftSidePanel />
-      <MainViewWrapper>
-        <Routes>
-          <Route path='dogsListAdmin' element={<DogsList />} />
-          <Route path='pagesListAdmin' element={<PagesList />} />
-          <Route path='usersListAdmin' element={<UsersList />} />
-          <Route path='*' element={<Content page={selectedPage}/>} />
-        </Routes>
-      </MainViewWrapper>
+      <Routes>
+        <Route path='dogsListAdmin' element={<DogsList />} />
+        <Route path='pagesListAdmin' element={<PagesList />} />
+        <Route path='usersListAdmin' element={<UsersList />} />
+        <Route
+          path='*'
+          element={
+            <>
+              <Content page={selectedPage} />
+              <EditPanel />
+            </>
+          }
+        />
+      </Routes>
     </AdminPanelWrapper>
   );
 };

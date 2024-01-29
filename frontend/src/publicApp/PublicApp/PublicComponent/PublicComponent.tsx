@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { DogItem, Form, Gallery, HeroBanner, Links, Text } from "../../../components";
 import { IPublicComponentProps } from "./PublicComponent.types";
-import { addableComponentsTypes } from "../../../lib/types/Component";
+import { addableComponentsTypes } from "../../../lib/constants";
 import { PublicComponentWrapper } from "./PublicComponent.styles";
 
 const PublicComponent: FC<IPublicComponentProps> = ({ component }) => {

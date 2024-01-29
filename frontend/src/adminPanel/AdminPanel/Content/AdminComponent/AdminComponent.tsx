@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useContext } from 'react';
 
 import deleteIcon from '../../../../assets/icons/delete.svg';
 import {
@@ -9,7 +9,7 @@ import {
   Links,
   Text,
 } from '../../../../components';
-import { addableComponentsTypes } from '../../../../lib/types/Component';
+import { addableComponentsTypes } from '../../../../lib/constants';
 import { DeleteComponentButton } from '../../../../shared/Buttons';
 import {
   AdminComponentNameWrapper,
@@ -17,9 +17,11 @@ import {
   AdminComponentWrapper,
 } from './AdminComponent.styles';
 import { IComponentProps } from './AdminComponent.types';
+import { EditComponentContext } from '../../../../lib/context/editComponentContext';
 
 const AdminComponent: FC<IComponentProps> = ({ component, onDelete }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { setComponent } = useContext(EditComponentContext);
 
   const renderComponent = () => {
     switch (component.type) {
@@ -45,6 +47,7 @@ const AdminComponent: FC<IComponentProps> = ({ component, onDelete }) => {
       <AdminComponentOverlay
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={() => setComponent(component)}
       >
         {isHovered && (
           <AdminComponentNameWrapper>

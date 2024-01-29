@@ -10,6 +10,7 @@ import AddComponent from './AddComponent';
 import AdminComponent from './AdminComponent';
 import { IContentProps } from './Content.types';
 import DeleteComponent from './DeleteComponent';
+import { MainViewWrapper } from '../AdminPanel.styles';
 
 const Content: FC<IContentProps> = ({ page }) => {
   const [isAddComponentModalOpen, toggleAddComponentModalOpen] = useModal();
@@ -28,7 +29,7 @@ const Content: FC<IContentProps> = ({ page }) => {
   };
 
   return (
-    <>
+    <MainViewWrapper>
       {isAddComponentModalOpen && (
         <Modal title='Add component' toggle={toggleAddComponentModalOpen}>
           <AddComponent
@@ -65,7 +66,7 @@ const Content: FC<IContentProps> = ({ page }) => {
         </>
       )}
       <Footer />
-    </>
+    </MainViewWrapper>
   );
 };
 
