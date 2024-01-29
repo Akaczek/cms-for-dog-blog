@@ -8,6 +8,7 @@ import {
 } from './EditPanel.styles';
 import { EditComponentContext } from '../../../../lib/context/editComponentContext';
 import EditComponent from './EditComponent';
+import EditLinks from './EditLinks';
 
 const EditPanel: FC = () => {
   const { currentComponent } = useContext(EditComponentContext);
@@ -20,7 +21,11 @@ const EditPanel: FC = () => {
       {currentComponent ? (
         <>
           <EditPanelSubheader>{currentComponent?.type}</EditPanelSubheader>
-          <EditComponent component={currentComponent} />
+          {currentComponent?.type === 'Links' ? (
+            <EditLinks component={currentComponent} />
+          ) : (
+            <EditComponent component={currentComponent} />
+          )}
         </>
       ) : (
         <EditPanelSubheader>Select component to edit</EditPanelSubheader>
