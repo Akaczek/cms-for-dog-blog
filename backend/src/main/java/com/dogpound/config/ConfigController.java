@@ -27,7 +27,7 @@ public class ConfigController {
     @GetMapping
     public List<ConfigDto> getAllConfig() {
         logger.info("Get all config");
-        authService.checkAuthority(Role.USER);
+//        authService.checkAuthority(Role.USER);
         return configService.getAllConfig();
     }
 

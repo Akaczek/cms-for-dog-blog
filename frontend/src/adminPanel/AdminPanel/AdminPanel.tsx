@@ -7,6 +7,8 @@ import { PagesContext } from '../../lib/context/pagesContext';
 import { UsersContext } from '../../lib/context/usersContext';
 import { GalleriesContext } from '../../lib/context/galleriesContext';
 import { EditComponentContext } from '../../lib/context/editComponentContext';
+import { ConfigContext } from '../../lib/context/configContext';
+import { MessagesContext } from '../../lib/context/messagesContext';
 import getLoggedUser from '../../lib/network/getLoggedUser';
 import { Page } from '../../lib/types';
 import { AdminPanelWrapper } from './AdminPanel.styles';
@@ -17,6 +19,8 @@ import PagesList from './PagesList';
 import UsersList from './UsersList';
 import EditPanel from './Content/EditPanel';
 import GalleryList from './GalleryList';
+import ConfigList from './ConfigList/ConfigList';
+import MessagesList from './MessagesList/MessagesList';
 
 const AdminPanel: FC = () => {
   const { setUser } = useContext(AuthContext);
@@ -25,6 +29,8 @@ const AdminPanel: FC = () => {
   const { getUsers } = useContext(UsersContext);
   const { getGalleries } = useContext(GalleriesContext);
   const { setComponent } = useContext(EditComponentContext);
+  const { getConfig } = useContext(ConfigContext);
+  const { getMessages } = useContext(MessagesContext);
   const [selectedPage, setSelectedPage] = useState<Page | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,6 +43,8 @@ const AdminPanel: FC = () => {
         getPages();
         getDogs();
         getGalleries();
+        getConfig();
+        getMessages();
         if (loggedUser.role !== 'user') {
           getUsers();
         }
@@ -71,6 +79,8 @@ const AdminPanel: FC = () => {
         <Route path='pagesListAdmin' element={<PagesList />} />
         <Route path='usersListAdmin' element={<UsersList />} />
         <Route path='galleryListAdmin' element={<GalleryList />} />
+        <Route path='configListAdmin' element={<ConfigList />} />
+        <Route path='messagesListAdmin' element={<MessagesList />} />
         <Route
           path='*'
           element={

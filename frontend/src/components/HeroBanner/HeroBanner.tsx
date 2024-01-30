@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
 import {
   HeroBannerWrapper,
@@ -26,9 +26,15 @@ import {
   phone,
 } from '../../assets/icons';
 import { IComponentProps } from '../components.types';
+import { ConfigContext } from '../../lib/context/configContext';
 
 const HeroBanner: FC<IComponentProps> = ({ component }) => {
   const imageLink = `${backendURL}/images/${component?.imageUrl ?? dogPaw}`;
+  const { config } = useContext(ConfigContext);
+
+  const getConfigValue = (key: string) => {
+    return config.find((item) => item.key === key)?.value;
+  };
 
   return (
     <HeroBannerWrapper>
@@ -47,16 +53,16 @@ const HeroBanner: FC<IComponentProps> = ({ component }) => {
         <HeroBannerSection>
           <HeroBannerSectionTitle>Follow us</HeroBannerSectionTitle>
           <SocialLinksWrapper>
-            <SocialLink href='https://www.facebook.com/'>
+            <SocialLink href={getConfigValue('Facebook')}>
               <img src={facebook} alt='facebook' />
             </SocialLink>
-            <SocialLink href='https://www.instagram.com/'>
+            <SocialLink href={getConfigValue('Instagram')}>
               <img src={instagram} alt='instagram' />
             </SocialLink>
-            <SocialLink href='https://twitter.com/'>
+            <SocialLink href={getConfigValue('Twitter')}>
               <img src={twitter} alt='twitter' />
             </SocialLink>
-            <SocialLink href='https://www.youtube.com/'>
+            <SocialLink href={getConfigValue('Youtube')}>
               <img src={youtube} alt='youtube' />
             </SocialLink>
           </SocialLinksWrapper>
@@ -65,16 +71,16 @@ const HeroBanner: FC<IComponentProps> = ({ component }) => {
           <HeroBannerSectionTitle>Contact</HeroBannerSectionTitle>
           <ContactItem>
             <ContactItemIcon src={email} alt='email' />
-            <ContactItemLink href='mailto:'>pound@gmail.com</ContactItemLink>
+            <ContactItemLink href='mailto:'>{getConfigValue('Email')}</ContactItemLink>
           </ContactItem>
           <ContactItem>
             <ContactItemIcon src={phone} alt='phone' />
-            <ContactItemLink href='tel:'>123 456 789</ContactItemLink>
+            <ContactItemLink href='tel:'>{getConfigValue('Phone')}</ContactItemLink>
           </ContactItem>
         </HeroBannerSection>
         <HeroBannerSection>
           <HeroBannerSectionTitle>Location</HeroBannerSectionTitle>
-          <LocationText>1234 Main St</LocationText>
+          <LocationText>{getConfigValue('Location')}</LocationText>
         </HeroBannerSection>
       </HeroBannerInfoWrapper>
     </HeroBannerWrapper>
