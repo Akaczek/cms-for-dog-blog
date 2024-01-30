@@ -87,8 +87,8 @@ const Gallery: FC<IComponentProps> = ({component}) => {
               currentTarget.src = dogPaw;
             }
           } alt='dog image' />
-          <GalleryItemTitle>{item.title}</GalleryItemTitle>
-          <GalleryItemText>{item.content}</GalleryItemText>
+          {item?.title && <GalleryItemTitle>{item.title}</GalleryItemTitle>}
+          {item?.content && <GalleryItemText>{item.content}</GalleryItemText>}
           {item?.buttonContent && (
             <GalleryItemButton href={item.path}>
               {item.buttonContent}

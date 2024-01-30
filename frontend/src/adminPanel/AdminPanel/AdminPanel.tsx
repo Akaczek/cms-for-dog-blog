@@ -16,6 +16,7 @@ import LeftSidePanel from './LeftSidePanel';
 import PagesList from './PagesList';
 import UsersList from './UsersList';
 import EditPanel from './Content/EditPanel';
+import GalleryList from './GalleryList';
 
 const AdminPanel: FC = () => {
   const { setUser } = useContext(AuthContext);
@@ -69,6 +70,7 @@ const AdminPanel: FC = () => {
         <Route path='dogsListAdmin' element={<DogsList />} />
         <Route path='pagesListAdmin' element={<PagesList />} />
         <Route path='usersListAdmin' element={<UsersList />} />
+        <Route path='galleryListAdmin' element={<GalleryList />} />
         <Route
           path='*'
           element={
