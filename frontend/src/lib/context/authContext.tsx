@@ -9,6 +9,7 @@ export const AuthContext = createContext<{
   setUser: (user: User | null) => void;
   login: (email: string, password: string) => Promise<User | null>;
   logout: () => Promise<void>;
+  updatePassword: (userId: number, oldPassword: string, newPassword: string) => Promise<void>;
 }>(null);
 
 export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -37,8 +38,19 @@ export const AuthProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     }
   };
 
+  const updatePassword = async (userId: number, oldPassword: string, newPassword: string) => {
+    try {
+      await axios.patch(`${backendURL}/users/${userId}/password`, {
+        oldPassword,
+        newPassword,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, updatePassword }}>
       {children}
     </AuthContext.Provider>
   );
