@@ -8,6 +8,7 @@ export const GalleryWrapper = styled.div`
   gap: 20px;
   padding: 20px;
   background-color: ${(props) => props.theme.colors.white};
+  min-height: 200px;
 
   @media ${device.md} {
     padding: 20px 40px;
@@ -48,7 +49,7 @@ export const GalleryItemText = styled.p`
   overflow: auto;
 `;
 
-export const GalleryItemButton = styled.button`
+export const GalleryItemButton = styled.a`
   position: relative;
   top: 20px;
   padding: 10px 20px;
@@ -58,6 +59,7 @@ export const GalleryItemButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   background-color: ${(props) => props.theme.colors.white};
+  text-decoration: none;
 
   &:hover {
     background-color: ${(props) => props.theme.colors.lightGrey};

@@ -88,10 +88,9 @@ export const PagesProvider: FC<{ children: React.ReactNode }> = ({
 
   const deleteComponent = async (componentId: number) => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `${backendURL}/components/${componentId}`
       );
-      console.log(response.data);
       await getPages();
     } catch (error) {
       console.error(error);

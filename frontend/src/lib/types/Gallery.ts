@@ -1,10 +1,10 @@
 export type GalleryItem = {
   id: number;
-  title: string;
-  imageUrl: string;
-  path: string;
-  content: string;
-  buttonContent: string;
+  title?: string;
+  imageUrl?: string;
+  path?: string;
+  content?: string;
+  buttonContent?: string;
 };
 
 export interface Gallery {

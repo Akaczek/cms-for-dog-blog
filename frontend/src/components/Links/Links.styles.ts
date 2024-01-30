@@ -6,7 +6,6 @@ export const LinksContainer = styled.div`
   justify-content: center;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.lightGrey};
-  padding-bottom: 30px;
 `;
 
 export const Image = styled.img`
