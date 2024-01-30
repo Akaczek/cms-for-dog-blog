@@ -5,7 +5,7 @@ import { UsersContext } from "../../../../lib/context/usersContext";
 import { ConfirmButton } from "../../../../shared/Buttons";
 import { ConfirmationMessage } from "../../../../shared/Form";
 
-const DeleteDog: FC<IDeleteUserProps> = ({ user, onClose }) => {
+const DeleteUser: FC<IDeleteUserProps> = ({ user, onClose }) => {
   const { deleteUser } = useContext(UsersContext);
 
   const handleDeleteUser = async () => {
@@ -23,4 +23,4 @@ const DeleteDog: FC<IDeleteUserProps> = ({ user, onClose }) => {
   );
 };
 
-export default DeleteDog;
+export default DeleteUser;
