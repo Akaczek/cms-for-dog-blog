@@ -53,7 +53,7 @@ public class GalleryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updateGallery(@PathVariable Long id, GalleryDtoFormUpdate form) {
+    public ResponseEntity<Void> updateGallery(@PathVariable Long id, @RequestBody GalleryDtoFormUpdate form) {
         logger.info("Update gallery id=" + id);
         authService.checkAuthority(Role.USER);
         galleryService.updateGallery(id, form);

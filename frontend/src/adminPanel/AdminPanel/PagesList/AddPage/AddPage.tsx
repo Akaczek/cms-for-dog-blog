@@ -2,18 +2,20 @@ import { FC, useContext, useState } from 'react';
 
 import { PagesContext } from '../../../../lib/context/pagesContext';
 import { ConfirmButton } from '../../../../shared/Buttons';
+import { Checkbox, CheckboxWrapper, InputPrefix } from './AddPage.styles';
 import {
-  Checkbox,
-  CheckboxWrapper,
-  InputPrefix,
-} from './AddPage.styles';
-import { WarningMessage, Input, InputLabel, InputWrapper } from '../../../../shared/Form';
+  WarningMessage,
+  Input,
+  InputLabel,
+  InputWrapper,
+} from '../../../../shared/Form';
 import { IAddPageProps } from './AddPage.types';
 
 const AddPage: FC<IAddPageProps> = ({
   parentPage,
   onClose,
   isAddingToMainPage,
+  isOverFivePagesInHeader,
 }) => {
   const [pagePath, setPagePath] = useState('');
   const [pageName, setPageName] = useState('');
@@ -59,17 +61,23 @@ const AddPage: FC<IAddPageProps> = ({
       <InputWrapper>
         <Input value={pageName} onChange={(e) => setPageName(e.target.value)} />
       </InputWrapper>
-      {(parentPage.parentPageId === null || parentPage?.inHeader) && (
-        <>
-          <InputLabel>Is in header</InputLabel>
-          <CheckboxWrapper>
-            <Checkbox
-              type='checkbox'
-              checked={isInHeader}
-              onChange={() => setIsInHeader(!isInHeader)}
-            />
-          </CheckboxWrapper>
-        </>
+      {(parentPage.inHeader || isAddingToMainPage) &&
+        !(isAddingToMainPage && isOverFivePagesInHeader) && (
+          <>
+            <InputLabel>Is in header</InputLabel>
+            <CheckboxWrapper>
+              <Checkbox
+                type='checkbox'
+                checked={isInHeader}
+                onChange={() => setIsInHeader(!isInHeader)}
+              />
+            </CheckboxWrapper>
+          </>
+        )}
+      {isAddingToMainPage && isOverFivePagesInHeader && (
+        <WarningMessage>
+          You can't add more than 5 pages to header
+        </WarningMessage>
       )}
       <ConfirmButton onClick={handleAddPage}>Add page</ConfirmButton>
     </>

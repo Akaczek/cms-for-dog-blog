@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useContext, useState, useEffect } from 'react';
 
 import { PagesContext } from '../../../lib/context/pagesContext';
 import { useModal } from '../../../lib/hooks';
@@ -19,6 +19,7 @@ const PagesList: FC = () => {
   const [isAddModalOpen, toggleAddModal] = useModal();
   const [isDeleteModalOpen, toggleDeleteModal] = useModal();
   const [selectedPage, setSelectedPage] = useState<Page | null>(null);
+  const [numberOfPagesInHeader, setNumberOfPagesInHeader] = useState<number>(0);
 
   const handleOpenAddModal = (page: Page) => {
     setSelectedPage(page);
@@ -30,6 +31,12 @@ const PagesList: FC = () => {
     toggleDeleteModal();
   };
 
+  useEffect(() => {
+    const numberOfPagesInHeader = pages.filter((page) => (page.inHeader && page.parentPageId === null)).length;
+    setNumberOfPagesInHeader(numberOfPagesInHeader);
+  }, [pages]);
+
+
   return (
     <MainViewWrapper>
       <ListWrapper>
@@ -39,6 +46,7 @@ const PagesList: FC = () => {
               parentPage={selectedPage}
               onClose={toggleAddModal}
               isAddingToMainPage={selectedPage.path === '/'}
+              isOverFivePagesInHeader={numberOfPagesInHeader >= 5}
             />
           </Modal>
         )}
@@ -49,7 +57,9 @@ const PagesList: FC = () => {
         )}
         <ListHeader>Pages</ListHeader>
         <List>
-          {pages.map((page) => {
+          {pages.sort(
+            (a, b) => a.id - b.id
+          ).map((page) => {
             if (page.parentPageId === null) {
               return (
                 <>

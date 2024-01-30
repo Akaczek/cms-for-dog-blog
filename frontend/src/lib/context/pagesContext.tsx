@@ -48,7 +48,7 @@ export const PagesProvider: FC<{ children: React.ReactNode }> = ({
         path: pagePath,
         name: pageName,
         ...(parentPageId && { parentPageId }),
-        ...(isInHeader && { inHeader: isInHeader }),
+        ...(isInHeader && { isInHeader }),
       });
       console.log(response.data);
       await getPages();
