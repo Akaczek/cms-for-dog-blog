@@ -27,7 +27,7 @@ public class ImageController {
             produces = { MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
     public ResponseEntity<Resource> getImage(@PathVariable String fileName) {
         logger.info("Get image filename=" + fileName);
-        authService.checkAuthority(Role.USER);
+//        authService.checkAuthority(Role.USER);
         PathResource resource = imageService.getImage(fileName);
         return ResponseEntity.ok(resource);
     }

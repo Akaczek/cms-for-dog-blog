@@ -40,7 +40,7 @@ const Header: FC = () => {
             <>
             <BurgerMenuItem onClick={
               () => {
-                navigate('http://localhost:5173/' + item.path);
+                navigate(item.path);
                 setIsMenuExpanded(() => !isMenuExpanded);
               }
             } key={item.id}>{item.name}</BurgerMenuItem>
@@ -48,14 +48,14 @@ const Header: FC = () => {
               <>
                 <BurgerMenuSecondaryItem onClick={
                   () => {
-                    navigate('http://localhost:5173/' + subpage.path);
+                    navigate(subpage.path);
                     setIsMenuExpanded(() => !isMenuExpanded);
                   }
                 } key={subpage.id}>{subpage.name}</BurgerMenuSecondaryItem>
                 {subpage.subpages.map((subsubpage) => (
                   <BurgerMenuTertiaryItem onClick={
                     () => {
-                      navigate('http://localhost:5173/' + subsubpage.path);
+                      navigate(subsubpage.path);
                       setIsMenuExpanded(() => !isMenuExpanded);
                     }
                   } key={subsubpage.id}>{subsubpage.name}</BurgerMenuTertiaryItem>

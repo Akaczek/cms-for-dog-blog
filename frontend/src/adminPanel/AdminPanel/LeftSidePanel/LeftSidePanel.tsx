@@ -16,6 +16,7 @@ import dog from '../../../assets/icons/dog.svg';
 import users from '../../../assets/icons/users.svg';
 import logo from '../../../assets/logo.png';
 import gallery from '../../../assets/icons/gallery.svg';
+import settings from '../../../assets/icons/settings.svg';
 
 const LeftSidePanel: FC = () => {
   const { user, logout } = useContext(AuthContext);
@@ -43,6 +44,9 @@ const LeftSidePanel: FC = () => {
         </LeftSidePanelLink>
         <LeftSidePanelLink to='/admin/galleryListAdmin'>
           <LeftSidePanelLinkIcon src={gallery}/>
+        </LeftSidePanelLink>
+        <LeftSidePanelLink to='/admin/configListAdmin'>
+          <LeftSidePanelLinkIcon src={settings}/>
         </LeftSidePanelLink>
         {(user?.role === 'admin' || user?.role === 'superadmin') && (
           <LeftSidePanelLink to='/admin/usersListAdmin'>

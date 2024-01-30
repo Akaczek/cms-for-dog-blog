@@ -11,6 +11,7 @@ import { DogsProvider } from './lib/context/dogsContext';
 import { UsersProvider } from './lib/context/usersContext';
 import { EditComponentProvider } from './lib/context/editComponentContext';
 import { GalleriesProvider } from './lib/context/galleriesContext';
+import ConfigProvider from './lib/context/configContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -21,7 +22,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <UsersProvider>
               <EditComponentProvider>
                 <GalleriesProvider>
-                  <App />
+                  <ConfigProvider>
+                    <App />
+                  </ConfigProvider>
                 </GalleriesProvider>
               </EditComponentProvider>
             </UsersProvider>
