@@ -13,41 +13,25 @@ import {
 import dogPaw from '../../assets/paw.svg';
 import { useWindowSize } from '../../lib/hooks';
 import { arrow_left, arrow_right } from '../../assets/icons';
+import { IComponentProps } from '../components.types';
+import { backendURL } from '../../lib/constants';
 
-const mockedList = [
-  {
-    id: 1,
-    title: 'Dog 1',
-    text: 'Lorem ipsum dolor sit amet',
-  },
-  {
-    id: 2,
-    title: 'Dog 2',
-    text: 'Lorem ipsum dolor sit amet',
-  },
-  {
-    id: 3,
-    title: 'Dog 3',
-    text: 'Lorem ipsum dolor sit amet',
-  },
-  {
-    id: 4,
-    title: 'Dog 4',
-    text: 'Lorem ipsum dolor sit amet',
-  },
-];
-
-const Gallery: FC = () => {
+const Gallery: FC<IComponentProps> = ({component}) => {
+  const [galleryItems, setGalleryItems] = useState(component.gallery?.galleryItems || []);
   const [max_items, setMaxItems] = useState(4);
   const [max_pages, setMaxPages] = useState(
-    Math.ceil(mockedList.length / max_items)
+    Math.ceil(galleryItems.length / max_items)
   );
   const [current_page, setCurrentPage] = useState(1);
   const [current_items, setCurrentItems] = useState(
-    mockedList.slice(0, max_items)
+    galleryItems.slice(0, max_items)
   );
 
   const windowSize = useWindowSize();
+
+  useEffect(() => {
+    setGalleryItems(component.gallery?.galleryItems || []);
+  }, [component]);
 
   useEffect(() => {
     if (windowSize.width < 600) {
@@ -62,16 +46,18 @@ const Gallery: FC = () => {
   }, [windowSize]);
 
   useEffect(() => {
-    setMaxPages(Math.ceil(mockedList.length / max_items));
+    setMaxPages(Math.ceil(galleryItems.length / max_items));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [max_items]);
 
   useEffect(() => {
     setCurrentItems(
-      mockedList.slice(
+      galleryItems.slice(
         current_page * max_items - max_items,
         current_page * max_items
       )
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current_page, max_items]);
 
   useEffect(() => {
@@ -88,20 +74,29 @@ const Gallery: FC = () => {
 
   return (
     <GalleryWrapper>
-      {mockedList.length > max_items && (
+      {galleryItems.length > max_items && (
         <SwipeLeftButton onClick={prevPage} disabled={current_page === 1}>
           <img src={arrow_left} alt='left arrow' />
         </SwipeLeftButton>
       )}
       {current_items.map((item) => (
         <GalleryItem key={item.id}>
-          <GalleryItemImg src={dogPaw} alt='dog image' />
+          <GalleryItemImg src={`${backendURL}/images/${item?.imageUrl}`} onError={
+            ({currentTarget}) => {
+              currentTarget.onerror = null;
+              currentTarget.src = dogPaw;
+            }
+          } alt='dog image' />
           <GalleryItemTitle>{item.title}</GalleryItemTitle>
-          <GalleryItemText>{item.text}</GalleryItemText>
-          <GalleryItemButton>Learn more</GalleryItemButton>
+          <GalleryItemText>{item.content}</GalleryItemText>
+          {item?.buttonContent && (
+            <GalleryItemButton href={item.path}>
+              {item.buttonContent}
+            </GalleryItemButton>
+          )}
         </GalleryItem>
       ))}
-      {mockedList.length > max_items && (
+      {galleryItems.length > max_items && (
         <SwipeRightButton
           onClick={nextPage}
           disabled={current_page === max_pages}

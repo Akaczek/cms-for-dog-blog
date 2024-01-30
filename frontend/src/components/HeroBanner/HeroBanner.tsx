@@ -15,15 +15,33 @@ import {
   ContactItemLink,
   LocationText,
 } from './HeroBanner.styles';
+import { backendURL } from '../../lib/constants';
 import dogPaw from '../../assets/paw.svg';
-import { facebook, instagram, twitter, youtube, email, phone } from '../../assets/icons';
+import {
+  facebook,
+  instagram,
+  twitter,
+  youtube,
+  email,
+  phone,
+} from '../../assets/icons';
+import { IComponentProps } from '../components.types';
 
-const HeroBanner: FC = () => {
+const HeroBanner: FC<IComponentProps> = ({ component }) => {
+  const imageLink = `${backendURL}/images/${component?.imageUrl ?? dogPaw}`;
+
   return (
     <HeroBannerWrapper>
       <HeroBannerImageWrapper>
-        <HeroBannerImage src={dogPaw} alt='dog paw' />
-        <HeroBannerTitle>Find your new best friend</HeroBannerTitle>
+        <HeroBannerImage
+          src={imageLink}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            currentTarget.src = dogPaw;
+          }}
+          alt='dog paw'
+        />
+        <HeroBannerTitle>{component?.title ?? ''}</HeroBannerTitle>
       </HeroBannerImageWrapper>
       <HeroBannerInfoWrapper>
         <HeroBannerSection>

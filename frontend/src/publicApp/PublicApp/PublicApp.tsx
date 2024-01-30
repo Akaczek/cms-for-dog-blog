@@ -33,7 +33,9 @@ const PublicApp: FC = () => {
         <>
           <Header />
           <ContentWrapper>
-            {selectedPage.components.map((component) => {
+            {selectedPage.components.sort(
+              (a,b) => a.order - b.order
+            ).map((component) => {
               return <PublicComponent component={component} />;
             })}
           </ContentWrapper>

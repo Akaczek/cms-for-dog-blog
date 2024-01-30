@@ -10,28 +10,34 @@ import {
   Button,
 } from './Text.styles';
 import { ImagePosition } from './Text.types';
+import { IComponentProps } from '../components.types';
+import { backendURL } from '../../lib/constants';
 
-const Text: FC = () => {
+const Text: FC<IComponentProps> = ({ component }) => {
+  const imagePosition = component?.imagePosition || 'left';
+  const imageLink = `${backendURL}/images/${component?.imageUrl ?? dogPaw}`;
+
   return (
-    <TextWrapper $imagePosition={'left' as ImagePosition}>
-      <Image src={dogPaw} alt='dog' />
+    <TextWrapper $imagePosition={imagePosition as ImagePosition}>
+      <Image
+        src={imageLink}
+        alt='dog'
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src = dogPaw;
+        }}
+      />
       <TextAndButtonWrapper>
-        <Header>Some header</Header>
+        <Header>{component?.title || ''}</Header>
         <Paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac
-          magna et erat dapibus dapibus. Quisque sem eros, rutrum nec tincidunt
-          non, hendrerit id velit. Duis sodales quam ut leo feugiat dictum. Orci
-          varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. Mauris ac faucibus velit. Quisque eget viverra justo,
-          nec vestibulum enim. Nullam efficitur erat in tellus iaculis accumsan.
-          Suspendisse egestas arcu ante, in rhoncus lacus facilisis eu. Quisque
-          molestie nibh vel laoreet ultrices. Phasellus et felis at leo maximus
-          commodo. Aenean non neque massa. Cras nec ultricies eros, sed finibus
-          sem. Proin lobortis lorem ut augue posuere varius. Nullam eleifend
-          vitae arcu sed ornare. Curabitur libero lacus, dignissim sed sapien
-          et, suscipit lobortis est.
+          {component?.content ||
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel libero quis lacus hendrerit mattis. Nullam sit amet eros sit amet ligula ultricies ultrices. '}
         </Paragraph>
-        <Button>Some button</Button>
+        {component?.buttonContent && (
+          <Button href={component?.path || ''}>
+            {component?.buttonContent}
+          </Button>
+        )}
       </TextAndButtonWrapper>
     </TextWrapper>
   );

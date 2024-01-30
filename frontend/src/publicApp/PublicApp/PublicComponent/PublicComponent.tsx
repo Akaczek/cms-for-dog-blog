@@ -9,17 +9,17 @@ const PublicComponent: FC<IPublicComponentProps> = ({ component }) => {
   const renderComponent = () => {
     switch (component.type) {
       case addableComponentsTypes.DogItem:
-        return <DogItem />;
+        return <DogItem component={component}/>;
       case addableComponentsTypes.Form:
         return <Form />;
       case addableComponentsTypes.Gallery:
-        return <Gallery />;
+        return <Gallery component={component}/>;
       case addableComponentsTypes.HeroBanner:
-        return <HeroBanner />;
+        return <HeroBanner component={component}/>;
       case addableComponentsTypes.Links:
-        return <Links />;
+        return <Links component={component}/>;
       case addableComponentsTypes.TextWithImage:
-        return <Text />;
+        return <Text component={component}/>;
       default:
         return null;
     }

@@ -68,7 +68,7 @@ export const Paragraph = styled.p`
   color: ${(props) => props.theme.colors.darkGrey};
 `;
 
-export const Button = styled.button`
+export const Button = styled.a`
   width: 200px;
   padding: 10px 20px;
   cursor: pointer;
@@ -78,6 +78,8 @@ export const Button = styled.button`
   color: ${(props) => props.theme.colors.lightBrown};
   border: 2px solid ${(props) => props.theme.colors.lightBrown};
   transition: all 0.3s ease-in-out;
+  text-align: center;
+  text-decoration: none;
 
   &:hover {
     background-color: ${(props) => props.theme.colors.lightBrown};
