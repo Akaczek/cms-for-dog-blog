@@ -7,7 +7,6 @@ import { User } from '../types';
 export type addUserType = {
   name: string;
   email: string;
-  password: string;
   role: string;
 };
 
@@ -15,7 +14,7 @@ export const UsersContext = createContext<{
   users: User[];
   getUsers: () => Promise<void>;
   deleteUser: (id: number) => Promise<void>;
-  addUser: (user: addUserType) => Promise<void>;
+  addUser: (user: addUserType, password: string) => Promise<void>;
   editUserRole: (id: number, role: string) => Promise<void>;
 }>(null);
 
@@ -42,9 +41,9 @@ export const UsersProvider: FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const addUser = async (user: addUserType) => {
+  const addUser = async (user: addUserType, password: string) => {
     try {
-      await axios.post(`${backendURL}/users`, user);
+      await axios.post(`${backendURL}/users`, { ...user, password: password });
       await getUsers();
     } catch (error) {
       console.error(error);

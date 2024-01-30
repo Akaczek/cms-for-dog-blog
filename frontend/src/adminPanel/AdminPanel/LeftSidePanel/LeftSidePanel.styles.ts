@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const LeftSidePanelWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 100px;
+  width: 150px;
   height: 100vh;
   border-right: 1px solid ${(props) => props.theme.colors.lightGrey};
 `;
@@ -44,7 +44,26 @@ export const LeftSidePanelLinkLogo = styled.img`
 `;
 
 export const LogOutButton = styled.button`
-  margin: 0.5rem auto 0.5rem auto;
+  margin: 0.5rem 5px 0.5rem 5px;
+  padding: 10px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.red};
+  border: 2px solid ${(props) => props.theme.colors.red};
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  width: calc(100% - 10px);
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.red};
+    color: ${(props) => props.theme.colors.white};
+  }
+`;
+
+export const ChangePasswordButton = styled.button`
+  margin: auto 5px 0.5rem 5px;
   padding: 10px 10px;
   cursor: pointer;
   font-size: 16px;

@@ -27,7 +27,7 @@ const AddUser: FC<IAddUserProps> = ({ onClose }) => {
       setWarning('Please fill all fields');
       return;
     }
-    await addUser({ name, email, password, role });
+    await addUser({ name, email, role }, password);
     onClose();
   };
 

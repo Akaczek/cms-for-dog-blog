@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { Footer, Header } from '../../components';
 import { PagesContext } from '../../lib/context/pagesContext';
+import { ConfigContext } from '../../lib/context/configContext';
 import { Page } from '../../lib/types';
 import {
   ContentWrapper,
@@ -11,11 +12,13 @@ import PublicComponent from './PublicComponent';
 
 const PublicApp: FC = () => {
   const { pages, getPages } = useContext(PagesContext);
+  const { getConfig } = useContext(ConfigContext);
   const [selectedPage, setSelectedPage] = useState<Page | null>(null);
   const location = useLocation();
 
   useEffect(() => {
     getPages();
+    getConfig();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
