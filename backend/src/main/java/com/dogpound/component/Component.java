@@ -44,11 +44,11 @@ public class Component {
     @Column(name = "type")
     private ComponentType type;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "dog")
     private Dog dog;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "gallery")
     private Gallery gallery;
 
