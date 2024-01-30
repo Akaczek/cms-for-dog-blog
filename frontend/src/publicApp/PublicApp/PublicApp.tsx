@@ -6,8 +6,6 @@ import { PagesContext } from '../../lib/context/pagesContext';
 import { Page } from '../../lib/types';
 import {
   ContentWrapper,
-  NotFoundText,
-  NotFoundWrapper,
 } from './PublicApp.styles';
 import PublicComponent from './PublicComponent';
 
@@ -42,9 +40,7 @@ const PublicApp: FC = () => {
           <Footer />
         </>
       ) : (
-        <NotFoundWrapper>
-          <NotFoundText>404 - Page not found</NotFoundText>
-        </NotFoundWrapper>
+        null
       )}
     </>
   );

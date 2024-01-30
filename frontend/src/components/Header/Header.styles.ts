@@ -18,23 +18,46 @@ export const HeaderWrapper = styled.nav`
 export const NavItemsWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  gap: 5px;
+  gap: 15px;
 
   @media ${device.md} {
     display: none;
   }
 `;
 
-export const NavItem = styled.a`
+export const NavItemWrapper = styled.div`
+  display: flex;
+  position: relative;
+  align-items: center;
+`;
+
+export const NavItemLink = styled.a`
   text-decoration: none;
   cursor: pointer;
   padding: 10px 30px;
   font-size: 20px;
   font-weight: 600;
+  color: ${(props) => props.theme.colors.black};
 
   &:hover {
     color: ${(props) => props.theme.colors.lightBrown};
   }
+
+  &:visited {
+    color: ${(props) => props.theme.colors.black};
+  }
+`;
+
+export const NavItemSubMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: -50%;
+  width: 200px;
+  max-height: 500px;
+  z-index: 1;
+  overflow-y: auto;
 `;
 
 export const NavSeparator = styled.div`
@@ -47,6 +70,7 @@ export const NavSeparator = styled.div`
 export const HeaderLogo = styled.img`
   max-width: 162px;
   height: auto;
+  cursor: pointer;
 
   @media ${device.md} {
     margin-right: 10px;
@@ -82,16 +106,44 @@ export const BurgerMenuItems = styled.div`
     width: 100%;
     z-index: 1;
     background-color: ${(props) => props.theme.colors.white};
+    overflow-y: auto;
   }
 `;
 
-export const BurgerMenuItem = styled.a`
+export const BurgerMenuItem = styled.div`
   text-decoration: none;
   padding: 10px 0 10px 20px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  border-bottom: 2px solid ${(props) => props.theme.colors.lightBrown};
+  border-top: 2px solid ${(props) => props.theme.colors.lightBrown};
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightBrown};
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.lightGrey};
+  }
+`;
+
+export const BurgerMenuSecondaryItem = styled.div`
+  text-decoration: none;
+  padding: 10px 0 10px 40px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightBrown};
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.lightGrey};
+  }
+`;
+
+export const BurgerMenuTertiaryItem = styled.div`
+  text-decoration: none;
+  padding: 10px 0 10px 60px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightBrown};
 
   &:hover {
     background-color: ${(props) => props.theme.colors.lightGrey};

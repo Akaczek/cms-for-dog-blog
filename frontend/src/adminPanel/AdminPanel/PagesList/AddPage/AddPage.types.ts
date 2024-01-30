@@ -4,4 +4,5 @@ export interface IAddPageProps {
   parentPage: Page | null;
   onClose: () => void;
   isAddingToMainPage: boolean;
+  isOverFivePagesInHeader: boolean;
 }

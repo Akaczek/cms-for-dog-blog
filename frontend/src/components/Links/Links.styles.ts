@@ -22,7 +22,7 @@ export const Image = styled.img`
 export const TitleAndLinksWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
+  padding: 0 10px 10px 10px;
   flex-grow: 2;
   max-height: 500px;
   overflow-y: auto;
