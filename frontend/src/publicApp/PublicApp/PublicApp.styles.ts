@@ -16,3 +16,9 @@ export const NotFoundText = styled.p`
   font-size: 20px;
   font-weight: 600;
 `;
+
+export const PublicAppWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;

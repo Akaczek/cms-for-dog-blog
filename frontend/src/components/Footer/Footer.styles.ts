@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { device } from '../../assets/theme';
+import { Link } from "react-router-dom";
 
 export const FooterWrapper = styled.footer`
   display: flex;
@@ -22,14 +23,19 @@ export const FooterDate = styled.div`
   font-weight: 600;
 `;
 
-export const FooterLink = styled.a`
+export const FooterLink = styled(Link)`
   text-decoration: none;
   cursor: pointer;
   padding: 10px 30px;
   font-size: 20px;
   font-weight: 600;
+  color: ${(props) => props.theme.colors.black};
 
   &:hover {
     color: ${(props) => props.theme.colors.lightBrown};
+  }
+
+  &:visited {
+    color: ${(props) => props.theme.colors.black};
   }
 `;

@@ -5,8 +5,8 @@ import { FooterWrapper, FooterDate, FooterLink } from "./Footer.styles";
 export const Footer: FC = () => {
   return (
     <FooterWrapper>
-      <FooterDate>© 2023</FooterDate>
-      <FooterLink>Privacy Policy</FooterLink>
+      <FooterDate>© 2024</FooterDate>
+      <FooterLink to={'/policy'}>Privacy Policy</FooterLink>
     </FooterWrapper>
   );
 };

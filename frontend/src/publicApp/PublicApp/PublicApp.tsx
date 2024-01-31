@@ -7,6 +7,7 @@ import { ConfigContext } from '../../lib/context/configContext';
 import { Page } from '../../lib/types';
 import {
   ContentWrapper,
+  PublicAppWrapper,
 } from './PublicApp.styles';
 import PublicComponent from './PublicComponent';
 
@@ -31,7 +32,7 @@ const PublicApp: FC = () => {
   return (
     <>
       {selectedPage ? (
-        <>
+        <PublicAppWrapper>
           <Header />
           <ContentWrapper>
             {selectedPage.components.sort(
@@ -41,7 +42,7 @@ const PublicApp: FC = () => {
             })}
           </ContentWrapper>
           <Footer />
-        </>
+        </PublicAppWrapper>
       ) : (
         null
       )}
