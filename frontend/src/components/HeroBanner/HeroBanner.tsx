@@ -33,7 +33,8 @@ const HeroBanner: FC<IComponentProps> = ({ component }) => {
   const { config } = useContext(ConfigContext);
 
   const getConfigValue = (key: string) => {
-    return config.find((item) => item.key === key)?.value;
+    const value = config.find((item) => item.key === key)?.value;
+    return value || '';
   };
 
   return (

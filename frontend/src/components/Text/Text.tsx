@@ -19,14 +19,16 @@ const Text: FC<IComponentProps> = ({ component }) => {
 
   return (
     <TextWrapper $imagePosition={imagePosition as ImagePosition}>
-      <Image
-        src={imageLink}
-        alt='dog'
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null;
-          currentTarget.src = dogPaw;
-        }}
-      />
+      {component?.imageUrl && (
+        <Image
+          src={imageLink}
+          alt='dog'
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            currentTarget.src = dogPaw;
+          }}
+        />
+      )}
       <TextAndButtonWrapper>
         <Header>{component?.title || ''}</Header>
         <Paragraph>
