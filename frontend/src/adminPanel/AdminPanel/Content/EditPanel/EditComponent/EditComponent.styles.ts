@@ -12,6 +12,7 @@ export const EditInput = styled.input`
   border: 1px solid #ccc;
   outline: none;
   margin-right: 10px;
+  min-height: 30px;
 `;
 
 export const EditInputTextarea = styled.textarea`

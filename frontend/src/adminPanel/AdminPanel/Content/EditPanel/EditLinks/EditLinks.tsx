@@ -20,10 +20,11 @@ import LinkItem from './LinkItem';
 import { WarningMessage } from '../../../../../shared/Form';
 
 const EditLinks: FC<IEditLinksProps> = ({ component }) => {
-  const { updateLinkComponentImage, addLinkToComponent } =
+  const { updateLinkComponentImage, addLinkToComponent, updateLinksComponentTitle } =
     useContext(EditComponentContext);
   const [text, setText] = useState('');
   const [path, setPath] = useState('');
+  const [title, setTitle] = useState(component?.title || '');
   const [warning, setWarning] = useState('');
   const [isOpen, toggleOpen] = useModal();
 
@@ -34,6 +35,7 @@ const EditLinks: FC<IEditLinksProps> = ({ component }) => {
     if (image) {
       await updateLinkComponentImage(image);
     }
+    await updateLinksComponentTitle(component.id, title);
   };
 
   const handleAddLink = async () => {
@@ -77,6 +79,18 @@ const EditLinks: FC<IEditLinksProps> = ({ component }) => {
       )}
       {whatCanBeEdited[component.type].map((property) => {
         switch (property) {
+          case 'title':
+            return (
+              <>
+                <EditInputLabel htmlFor='title'>Title</EditInputLabel>
+                <EditInput
+                  id='title'
+                  type='text'
+                  value={title ?? ''}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </>
+            );
           case 'imageUrl':
             return (
               <>

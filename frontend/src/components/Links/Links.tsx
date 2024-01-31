@@ -29,7 +29,7 @@ const Links: FC<IComponentProps> = ({ component }) => {
         }}
       />
       <TitleAndLinksWrapper>
-        <Title>Links</Title>
+        <Title>{component?.title || ''}</Title>
         <LinksWrapper>
           {links.map((link) => (
             <LinkIconWrapper key={link.id}>

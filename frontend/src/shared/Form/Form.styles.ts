@@ -6,6 +6,7 @@ export const FormWrapper = styled.div`
   box-sizing: border-box;
   width: 100%;
   padding: 20px;
+  height: 100%;
   overflow-y: auto;
 `;
 
@@ -14,6 +15,7 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
 `;
 
 export const InputWrapper = styled.div`

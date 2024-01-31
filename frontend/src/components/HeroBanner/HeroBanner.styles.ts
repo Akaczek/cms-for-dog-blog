@@ -18,7 +18,7 @@ export const HeroBannerImageWrapper = styled.div`
 export const HeroBannerImage = styled.img`
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export const HeroBannerInfoWrapper = styled.div`
