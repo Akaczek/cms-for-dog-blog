@@ -13,6 +13,7 @@ export const EditComponentContext = createContext<{
   addLinkToComponent: (text: string, path: string) => void;
   deleteLinkFromComponent: (linkId: number) => void;
   updateLinkInComponent: (linkId: number, text: string, path: string) => void;
+  updateLinksComponentTitle: (componentId: number, title: string) => Promise<void>
 }>(null);
 
 export type editComponentType = {
@@ -64,6 +65,18 @@ export const EditComponentProvider: FC<{ children: React.ReactNode }> = ({
     formData.append('imageFile', image);
     try {
       await updateImage(image);
+      await getPages();
+      await getComponent(componentId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateLinksComponentTitle = async (componentId: number, title: string) => {
+    try {
+      await axios.patch(`${backendURL}/components/${componentId}`, {
+        title
+      });
       await getPages();
       await getComponent(componentId);
     } catch (error) {
@@ -141,6 +154,7 @@ export const EditComponentProvider: FC<{ children: React.ReactNode }> = ({
         addLinkToComponent,
         deleteLinkFromComponent,
         updateLinkInComponent,
+        updateLinksComponentTitle,
       }}
     >
       {children}

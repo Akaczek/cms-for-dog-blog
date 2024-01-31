@@ -38,5 +38,5 @@ export const whatCanBeEdited: whatCanBeEditedMap = {
   'DogItem': [thingsToBeEdited.dogId],
   'Gallery': [thingsToBeEdited.galleryId],
   'Form': [] as const,
-  'Links': [thingsToBeEdited.links, thingsToBeEdited.imageUrl],
+  'Links': [thingsToBeEdited.title, thingsToBeEdited.links, thingsToBeEdited.imageUrl],
 };
